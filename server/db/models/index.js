@@ -1,4 +1,5 @@
 require('./user');
+require('./product');
 
 
 //helloooo Christian
