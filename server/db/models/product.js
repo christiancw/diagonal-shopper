@@ -19,7 +19,7 @@ module.exports = db.define('product', {
   price: {
     type: Sequelize.INTEGER
   },
-  quantity: {
+  availableInventory: {
     type: Sequelize.INTEGER
   },
   description: {
