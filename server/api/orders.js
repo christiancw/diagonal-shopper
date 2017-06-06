@@ -52,6 +52,6 @@ router.put('/:orderId', (req, res, next) => {
 
 router.delete('/:orderId', (req, res, next) => {
   req.order.destroy()
-  .then(() => { res.status(204).end(); })
+  .then(() => res.sendStatus(204))
   .catch(next);
 });
