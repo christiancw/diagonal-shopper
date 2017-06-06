@@ -10,6 +10,10 @@ const setSaltAndPassword = user => {
 };
 
 module.exports = db.define('user', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -21,6 +25,9 @@ module.exports = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  address: {
+    type: Sequelize.STRING,
   },
   salt: {
     type: Sequelize.STRING
