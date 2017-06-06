@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const models = require('../db/models');
 const Product = models.Product;
-// const Review = models.Review;
+const Review = models.Review;
 // const Product = require('../db/').model('product');
 module.exports = router;
 
@@ -30,21 +30,21 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:productId', function(req, res, next) {
-  res.json(req.song);
+  res.json(req.product);
 });
 
 router.put('/:productId', function(req, res, next) {
   req.product.update(req.body)
   .then(function(updatedProduct) {
-    res.json(updatedProduct[1]);
+    res.status(200).json(updatedProduct);
   })
   .catch(next);
 });
 
 router.post('/', function(req, res, next) {
-  Product.create(req.product)
+  Product.create(req.body)
   .then(function(createdProduct) {
-    res.json(createdProduct);
+    res.status(201).json(createdProduct);
   })
   .catch(next);
 });
@@ -52,7 +52,7 @@ router.post('/', function(req, res, next) {
 router.delete('/:productId', function(req, res, next) {
   req.product.destroy()
   .then(
-    res.sendStatus(202)
+    res.sendStatus(204)
   )
   .catch(next);
 });
@@ -68,3 +68,5 @@ router.get('/:productId/reviews', function(req, res, next) {
   })
   .catch(next);
 });
+//
+// curl -d '{"name":"adigjowg"}' -H "Content-Type: application/json" -X POST http://localhost:8080/api/products
