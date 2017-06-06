@@ -46,7 +46,7 @@ router.put('/:orderId', (req, res, next) => {
     totalPrice,
     quantity
   })
-  .then(updatedOrder => res.json(updatedOrder))
+  .then(updatedOrder => res.status(200).json(updatedOrder))
   .catch(next);
 });
 
