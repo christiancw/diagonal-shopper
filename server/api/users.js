@@ -3,7 +3,7 @@ const User = require('../db').model('user');
 const Order = require('../db').model('order')
 
 module.exports = router;
-//STILL NEED TO FIGURE OUT SOME SESSION AND AUTH STUFF
+//STILL NEED TO FIGURE OUT SOME SESSION AND AUTH STUFFF
 
 router.get('/',
   (req, res, next) => {
