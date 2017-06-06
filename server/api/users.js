@@ -3,7 +3,22 @@ const User = require('../db').model('user');
 const Order = require('../db').model('order')
 
 module.exports = router;
-//STILL NEED TO FIGURE OUT SOME SESSION AND AUTH STUFF
+//STILL NEED TO FIGURE OUT SOME SESSION AND AUTH STUFFF
+
+
+router.param('userId', function(req, res, next, id){
+	User.findById(id)
+	.then(function(user){
+		if (!user){
+			const err = new Error('User not found.');
+			err.status = 404;
+			throw err;
+		}
+		req.user = user;
+		next();
+	})
+	.catch(next);
+});
 
 router.get('/',
   (req, res, next) => {
@@ -14,9 +29,7 @@ router.get('/',
 
 router.get('/:userId',
   (req, res, next) => {
-    User.findById(req.params.userId)
-      .then(user => res.json(user))
-      .catch(next)
+    res.json(req.user)
   });
 
 router.post('/',
@@ -28,23 +41,15 @@ router.post('/',
 
 router.put('/:userId',
   (req, res, next) => {
-    User.update(req.body, {
-      where: {
-        id: req.params.userId
-      }
-    })
-    .then(updatedUser => res.status(201).send)
+    req.user.update(req.body)
+    .then(updatedUser => res.status(200).json(updatedUser))
     .catch(next)
 })
 
 router.delete('/:userId',
   (req, res, next) => {
-    User.destroy({
-      where: {
-        id: req.params.userId
-      }
-    })
-    .then(students => res.send(students))
+    req.user.destroy()
+    .then(() => res.status(204).end())
     .catch(next)
 })
 
