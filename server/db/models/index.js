@@ -11,14 +11,15 @@ User.hasMany(Order)
 //getOrders
 //
 
-OrderItems.belongsToMany(Order, {through: 'banana'})
+// OrderItems.belongsToMany(Order, {through: 'banana'})
 // Order.belongsToMany(OrderItems)
-// //getOrderitems
-// OrderItems.belongsTo(Product)
+// Product.belongsTo(OrderItems)
+OrderItems.belongsTo(Product)
+OrderItems.belongsTo(Order)
 //
-// Review.belongsTo(User)
+Review.belongsTo(User)
 // User.belongsToMany(Review)
-// Review.belongsTo(Product)
+Review.belongsTo(Product)
 // Product.belongsToMany(Review)
 
 module.exports = {User, Product, Review, Order, OrderItems}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { logout } from '../reducer/user';
+import Products from './Products'
 
 // Component //
 
@@ -23,6 +24,9 @@ const Main = props => {
             <Link to="/signup">Sign Up</Link>
           </nav>
       }
+      <div>
+        <Products />
+      </div>
       <hr />
       { children }
     </div>

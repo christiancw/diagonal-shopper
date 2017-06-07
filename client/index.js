@@ -27,8 +27,8 @@ const onHomeEnter = () => {
     .then(function(res) {
       return res.data
     })
-    .then(allProducts => {
-      store.dispatch(getProducts(allProducts))
+    .then(foundProducts => {
+      store.dispatch(getProducts(foundProducts))
     })
     .catch(console.error)
 }
