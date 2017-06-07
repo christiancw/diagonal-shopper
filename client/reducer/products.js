@@ -14,7 +14,7 @@ const productsInitialState = ({
 
 /*---------------------ACTION CREATORS---------------------*/
 
-const getProducts = products => ({
+export const getProducts = products => ({
     type: GET_PRODUCTS,
     products
 });
