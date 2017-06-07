@@ -5,7 +5,7 @@ module.exports = db.define('product', {
   name: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    // allowNull: false
   },
   department: {
     type: Sequelize.STRING
