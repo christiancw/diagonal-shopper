@@ -20,6 +20,18 @@ const requireLogin = (nextRouterState, replace, next) =>
     .catch(err => console.log(err));
 
 
+const onHomeEnter = () => {
+  axios.get('/api/products')
+    .then(function(res) {
+      return res.data
+    })
+    .then(allProducts => {
+      store.dispatch(getProducts(allProducts))
+    }
+    .catch(console.error)
+}
+
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
