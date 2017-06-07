@@ -14,7 +14,11 @@ const Products = ({ products }) => {
       <h3>Results for ***Category or search term?***</h3>
       {products && products.map(product => (
         // <Product key={product.id} product={product} />
-        <h4>{product.name}</h4>
+        <div className="col-xs-4" key={product.id}>
+          <Link className="thumbnail" to={`/products/${product.id}`}/>
+          <img src={product.imageURL}/>
+          <h4>{product.name}</h4>
+        </div>
       ))}
     </div>
   );
