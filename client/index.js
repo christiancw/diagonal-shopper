@@ -41,7 +41,7 @@ ReactDOM.render(
         <IndexRoute component={Login} />
         <Route path="login" component={Login} />
         <Route path="signup" component={Signup} />
-        <Route onEnter={requireLogin}>
+        <Route onEnter={requireLogin, }>
           <Route path="home" component={UserHome} />
         </Route>
       </Route>
