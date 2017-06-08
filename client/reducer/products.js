@@ -8,7 +8,7 @@ const GET_PRODUCTS = 'GET_PRODUCTS';
 /*---------------------STATE---------------------*/
 
 const productsInitialState = ({
-    products: [],
+    allProducts: [],
     selectedProduct: {}
 })
 
@@ -35,9 +35,20 @@ export default function (state = productsInitialState, action) {
     switch (action.type) {
         case GET_PRODUCTS:
             return Object.assign({}, state, {
-                products: action.products
+                allProducts: action.products
             });
         default:
             return state;
     }
 }
+
+// export default function (state = productsInitialState, action) {
+//     console.log(state)
+//     switch (action.type) {
+//         case GET_PRODUCTS:
+//             return Object.assign({}, state, { allProducts: Object.assign() })
+//             });
+//         default:
+//             return state;
+//     }
+// }

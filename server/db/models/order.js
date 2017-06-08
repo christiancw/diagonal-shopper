@@ -10,9 +10,6 @@ module.exports = db.define('order', {
     // may need to calculate
     type: Sequelize.INTEGER
   },
-  quantity: {
-    type: Sequelize.INTEGER
-  },
   dateSubmitted: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
