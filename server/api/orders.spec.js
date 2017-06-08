@@ -45,6 +45,25 @@ describe('Order routes', () => {
         });
     });
 
+    it('POST /api/orders', () => {
+      return request(app)
+        .post('/api/orders')
+        .send({
+          status: 'created',
+          totalPrice: 100,
+          dateSubmitted: Date.now()
+        })
+        .expect(201)
+        .then(() => {
+          return Order.findOne({
+            where: { totalPrice: 100 }
+          });
+        })
+        .then(foundOrder => {
+          expect(foundOrder.totalPrice).to.equal(100);
+        });
+    });
+
   });
 
 });
