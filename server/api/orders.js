@@ -22,12 +22,11 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  const { status, totalPrice, quantity, dateSubmitted } = req.body;
+  const { status, totalPrice, dateSubmitted } = req.body;
 
   Order.create({
     status,
     totalPrice,
-    quantity,
     dateSubmitted
   })
   .then(createdOrder => res.status(201).json(createdOrder))
