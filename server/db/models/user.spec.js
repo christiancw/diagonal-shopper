@@ -8,6 +8,25 @@ describe('User model', () => {
     return db.sync({ force: true });
   });
 
+  it('has all the right fields', function(){
+    return User.create({
+      name: '',
+      email: '',
+      isAdmin: false,
+      address: '',
+      salt: '',
+      googleId: ''
+    })
+    .then(function (savedProduct) {
+      expect(savedProduct.name).to.equal('');
+      expect(savedProduct.email).to.equal('');
+      expect(savedProduct.isAdmin).to.equal(false);
+      expect(savedProduct.address).to.equal('');
+      expect(savedProduct.salt).to.equal('');
+      expect(savedProduct.googleId).to.equal('');
+    });
+  });
+
   describe('instanceMethods', () => {
 
     describe('correctPassword', () => {
