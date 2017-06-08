@@ -4,6 +4,8 @@ import {browserHistory} from 'react-router';
 /*---------------------ACTIONS---------------------*/
 
 const GET_PRODUCTS = 'GET_PRODUCTS';
+const SELECT_PRODUCT = 'SELECT_PRODUCT';
+const ADD_PRODUCT = 'ADD_PRODUCT';
 
 /*---------------------STATE---------------------*/
 
@@ -19,9 +21,21 @@ export const getProducts = products => ({
     products
 });
 
+export const add = product => ({
+    type: ADD_PRODUCT,
+    product
+})
+
+export const select = product => ({type: SELECT_PRODUCT, product})
+
 
 /*---------------------DISPATCHERS---------------------*/
 
+export const addProduct = product => dispatch => {
+    axios.post('/api/products', product)
+        .then(res => dispatch(add(res.data)))
+        browserHistory.push('/')
+};
 // export const me = () =>
 //     dispatch =>
 //     axios.get('/auth/me')
@@ -36,6 +50,10 @@ export default function (state = productsInitialState, action) {
         case GET_PRODUCTS:
             return Object.assign({}, state, {
                 allProducts: action.products
+            });
+        case ADD_PRODUCT:
+            return Object.assign({}, state, {
+                allProducts: action.product
             });
         default:
             return state;

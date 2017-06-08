@@ -59,7 +59,7 @@ describe('User routes', () => {
         .then((user) => {
           expect(user.name).to.equal('Joe Schmoe');
 
-        })
+        });
 
     });
 
@@ -79,18 +79,18 @@ describe('User routes', () => {
             .expect(200)
             .expect(res => {
               expect(res.body.name).to.equal('hotdog')
-            })
-        })
+            });
+        });
     });
 
     it('DELETE to /api/users/:userId with the correct response', () => {
       return request(app)
         .delete('/api/users/1')
         .expect(204)
-        .then(res =>{
+        .then(res => {
           expect(res.body).to.deep.equal({})
-        })
-    })
+        });
+    });
 
   }); // end describe('/api/users')
 
