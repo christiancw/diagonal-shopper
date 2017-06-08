@@ -17,7 +17,7 @@ router.param('orderId', (req, res, next, id) => {
 
 router.get('/', (req, res, next) => {
   Order.findAll()
-    .then(users => res.json(users))
+    .then(order => res.json(order))
     .catch(next);
 });
 
