@@ -3,7 +3,8 @@ const db = require('../db');
 
 module.exports = db.define('order', {
   status: {
-    type: Sequelize.ENUM('created', 'processing', 'cancelled', 'completed')
+    type: Sequelize.ENUM('created', 'processing', 'cancelled', 'completed'),
+    allowNull: false
   },
   totalPrice: {
     // may need to calculate
@@ -16,6 +17,7 @@ module.exports = db.define('order', {
 }, {
   instanceMethods: {
     placeOrder () {
+      this.setDataValue('status', 'processing');
     }
   }
 });
