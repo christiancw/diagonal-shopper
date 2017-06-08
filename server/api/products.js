@@ -42,6 +42,7 @@ router.put('/:productId', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+  // console.log('REQUEST=>', req)
   Product.create(req.body)
   .then(function(createdProduct) {
     res.status(201).json(createdProduct);
