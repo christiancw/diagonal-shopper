@@ -8,7 +8,7 @@ module.exports = db.define('review', {
   },
   date: {
     type: Sequelize.DATE,
-    allowNull: false
+    // allowNull: false
   },
   content: {
     type: Sequelize.TEXT,
