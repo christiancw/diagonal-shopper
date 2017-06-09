@@ -4,11 +4,24 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import { selectProduct } from '../reducer/products';
+import localStore from 'store';
 // import Product from '/Product';
 
-const Products = ({ products, setProduct }) => {
+const Products = ({ products, selectedProduct, setProduct }) => {
   // should get products, selectedCategory??
   console.log('ALL LOADED PRODUCTS', products);
+
+  function addToCart() {
+    const storeKey = String(selectedProduct.id);
+    const retrieved = localStore.get(storeKey);
+    if (!retrieved) {
+      localStore.set(storeKey, {quantity: 1, selectedProduct});
+    } else {
+      const newQuantity = retrieved.quantity + 1;
+      localStore.set(storeKey, {quantity: newQuantity, selectedProduct});
+    }
+  }
+
   return (
     <div>
       {/* We can get category/search term from state?? */}
@@ -22,6 +35,8 @@ const Products = ({ products, setProduct }) => {
           <button onClick={() => setProduct(product)}>Go To Product Page</button>
         </div>
       ))}
+
+      <button onClick={() => addToCart()}>Add Selected to Cart</button>
     </div>
   );
 };
@@ -33,8 +48,10 @@ const Products = ({ products, setProduct }) => {
 // hardcoding selectedCategory until we set up a reducer for it
 // products should be pre-filtered by category before it gets here?
 const mapState = (state) => {
-  console.log(state)
-  return {products: state.products.allProducts}
+  return {
+    products: state.products.allProducts,
+    selectedProduct: state.products.selectedProduct
+  };
   //.filter(p => p.categories.includes(selectedCategory
 };
 
