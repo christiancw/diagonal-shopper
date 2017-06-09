@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
-import { Main, Login, Signup, UserHome } from './components';
+import { Main, Login, Signup, UserHome } from './react/components';
 import { me } from './reducer/user';
 import axios from 'axios'
 import { getProducts } from './reducer/products'
