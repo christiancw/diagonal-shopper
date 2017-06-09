@@ -24,7 +24,7 @@ const requireLogin = (nextRouterState, replace, next) =>
 
 const onHomeEnter = () => {
   axios.get('/api/products')
-    .then(function(res) {
+    .then(res => {
       return res.data
     })
     .then(foundProducts => {
@@ -32,6 +32,19 @@ const onHomeEnter = () => {
     })
     .catch(console.error)
 }
+
+// const localCartToDbOrder = () => {
+
+//   axios.post('/api/orders', {
+//     status: 'created'
+//   })
+//     .then(res => {
+//       // res.data.userId = store.getState().user.id;
+//       const user = store.getState().user.id;
+//       user.addOrder(req.data);
+//     })
+//     .catch(console.error);
+// };
 
 
 ReactDOM.render(
@@ -42,6 +55,7 @@ ReactDOM.render(
         <Route path="login" component={Login} />
         <Route path="signup" component={Signup} />
         <Route onEnter={requireLogin}>
+          {/* <Route path="home" component={UserHome} onEnter={localCartToDbOrder} /> */}
           <Route path="home" component={UserHome} />
         </Route>
       </Route>
