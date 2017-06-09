@@ -13,8 +13,25 @@ import { Products } from './react/components/Products';
 import { Product } from './react/components/Product';
 import { Cart } from './react/components/Cart';
 import { me } from './reducer/user';
-import axios from 'axios'
-import { getProducts } from './reducer/products'
+import axios from 'axios';
+import { getProducts } from './reducer/products';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {darkBlack} from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: "#6A8EAE",
+    primary2Color: "9BD1E5",
+    primary3Color: "#BEBBBB",
+    textColor: darkBlack
+  }
+  // ,
+  // userAgent: req.headers['user-agent'],
+});
+
 
 const whoAmI = store.dispatch(me());
 
@@ -54,21 +71,23 @@ const onHomeEnter = () => {
 
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={Main} onEnter={onHomeEnter}>
-        <IndexRoute component={Login} />
-        <Route path="login" component={Login} />
-        <Route path="signup" component={Signup} />
-        <Route onEnter={requireLogin}>
-          {/* <Route path="home" component={UserHome} onEnter={localCartToDbOrder} /> */}
-          <Route path="home" component={UserHome} />
+  <MuiThemeProvider muiTheme={muiTheme}>
+    <Provider store={store}>
+      <Router history={browserHistory}>
+        <Route path="/" component={Main} onEnter={onHomeEnter}>
+          <IndexRoute component={Login} />
+          <Route path="login" component={Login} />
+          <Route path="signup" component={Signup} />
+          <Route onEnter={requireLogin}>
+            {/* <Route path="home" component={UserHome} onEnter={localCartToDbOrder} /> */}
+            <Route path="home" component={UserHome} />
+          </Route>
+          <Route path="products" component={Products} />
+          <Route path="products/:productId" component={Product} />
+          <Route path="cart" component={Cart} />
         </Route>
-        <Route path="products" component={Products} />
-        <Route path="products/:productId" component={Product} />
-        <Route path="cart" component={Cart} />
-      </Route>
-    </Router>
-  </Provider>,
+      </Router>
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('app')
 );
