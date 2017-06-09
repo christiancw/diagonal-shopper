@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { logout } from '../reducer/user';
 import Products from './Products'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from './AppBar.js';
 
 // Component //
 
@@ -12,24 +14,26 @@ const Main = props => {
   const { children, handleClick, loggedIn } = props;
 
   return (
+
     <div>
-      <h1>BOILERMAKER</h1>
-      { loggedIn ?
-          <nav>
-            <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>Logout</a>
-          </nav> :
-          <nav>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </nav>
-      }
-      <div>
-        <Products />
-      </div>
-      <hr />
-      { children }
+      <AppBar />
+        {/*{ loggedIn ?
+            <nav>
+              <Link to="/home">Home</Link>
+              <a href="#" onClick={handleClick}>Logout</a>
+            </nav> :
+            <nav>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+            </nav>
+        }*/}
+        <div>
+          <Products />
+        </div>
+        <hr />
+        { children }
     </div>
+
   );
 };
 

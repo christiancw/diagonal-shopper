@@ -7,8 +7,25 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
 import { Main, Login, Signup, UserHome } from './components';
 import { me } from './reducer/user';
-import axios from 'axios'
-import { getProducts } from './reducer/products'
+import axios from 'axios';
+import { getProducts } from './reducer/products';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {darkBlack} from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: "#6A8EAE",
+    primary2Color: "9BD1E5",
+    primary3Color: "#BEBBBB",
+    textColor: darkBlack
+  }
+  // ,
+  // userAgent: req.headers['user-agent'],
+});
+
 
 const whoAmI = store.dispatch(me());
 
@@ -35,17 +52,20 @@ const onHomeEnter = () => {
 
 
 ReactDOM.render(
+  <MuiThemeProvider muiTheme={muiTheme}>
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={Main} onEnter={onHomeEnter}>
-        <IndexRoute component={Login} />
-        <Route path="login" component={Login} />
-        <Route path="signup" component={Signup} />
-        <Route onEnter={requireLogin}>
-          <Route path="home" component={UserHome} />
+      <Router history={browserHistory}>
+        <Route path="/" component={Main} onEnter={onHomeEnter}>
+          <IndexRoute component={Login} />
+          <Route path="login" component={Login} />
+          <Route path="signup" component={Signup} />
+          <Route onEnter={requireLogin}>
+            <Route path="home" component={UserHome} />
+          </Route>
         </Route>
-      </Route>
-    </Router>
-  </Provider>,
+      </Router>
+  </Provider>
+  </MuiThemeProvider>
+  ,
   document.getElementById('app')
 );

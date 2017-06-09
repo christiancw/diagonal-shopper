@@ -17,6 +17,8 @@
     "connect-session-sequelize": "^4.1.0",
     "express": "^4.14.1",
     "express-session": "^1.15.1",
+    "material": "^0.1.1",
+    "material-ui": "^0.18.3",
     "morgan": "^1.8.1",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
@@ -28,11 +30,13 @@
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
     "sequelize": "^3.30.2",
-    "supertest-as-promised": "^4.0.2"
+    "supertest-as-promised": "^4.0.2",
+    "ui": "^0.2.4"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",

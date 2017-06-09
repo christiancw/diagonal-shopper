@@ -45,7 +45,7 @@ const createApp = () => app
     res.status(err.status || 500).send(err.message || 'Internal server error.'));
 
 const syncDb = () =>
-  db.sync({force: true});
+  db.sync();
 
 const listenUp = () =>
   app.listen(PORT, () =>
