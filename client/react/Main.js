@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { logout } from '../reducer/user';
 import Products from './Products'
-import NavBarContainer from '../containers/NavBarContainer';
 
 // Component //
 
@@ -14,11 +13,21 @@ const Main = props => {
 
   return (
     <div>
-      <h1>Harry Shopper</h1>
-      { NavBarContainer }
+      <h1>BOILERMAKER</h1>
+      { loggedIn ?
+          <nav>
+            <Link to="/home">Home</Link>
+            <a href="#" onClick={handleClick}>Logout</a>
+          </nav> :
+          <nav>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </nav>
+      }
       <div>
         <Products />
       </div>
+      <hr />
       { children }
     </div>
   );
