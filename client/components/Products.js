@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import { selectProduct } from '../reducer/products';
 // import Product from '/Product';
 
-const Products = ({ products }) => {
+const Products = ({ products, setProduct }) => {
   // should get products, selectedCategory??
-  console.log(products)
+  console.log('ALL LOADED PRODUCTS', products);
   return (
     <div>
       {/* We can get category/search term from state?? */}
@@ -15,9 +16,10 @@ const Products = ({ products }) => {
       {products && products.map(product => (
         // <Product key={product.id} product={product} />
         <div className="col-xs-4" key={product.id}>
-          <Link className="thumbnail" to={`/products/${product.id}`}/>
-          <img src={product.imageURL}/>
+          {/* <Link className="thumbnail" to={`/products/${product.id}`} /> */}
+          <img src={product.imageURL} />
           <h4>{product.name}</h4>
+          <button onClick={() => setProduct(product)}>Go To Product Page</button>
         </div>
       ))}
     </div>
@@ -36,7 +38,15 @@ const mapState = (state) => {
   //.filter(p => p.categories.includes(selectedCategory
 };
 
-export default connect(mapState)(Products);
+const mapDispatch = (dispatch) => {
+  return {
+    setProduct(product) {
+      dispatch(selectProduct(product.id));
+    }
+  };
+};
+
+export default connect(mapState, mapDispatch)(Products);
 
 Products.propTypes = {
   products: PropTypes.array
