@@ -1,14 +1,14 @@
-import Navbar from './components/navbar';
+import Navbar from '../components/Navbar';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.categories.list
+    // categories: state.categories.list
   };
 }
 
-const NavBarContainer = connect(
+const NavbarContainer = connect(
   mapStateToProps
 )(Navbar);
 
-export default NavBarContainer;
+export default NavbarContainer;

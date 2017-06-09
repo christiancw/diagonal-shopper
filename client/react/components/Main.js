@@ -2,23 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { logout } from '../reducer/user';
+import { logout } from '../../reducer/user';
 import Products from './Products'
-import NavBarContainer from '../containers/NavBarContainer';
+import NavbarContainer from '../containers/NavbarContainer';
 
 // Component //
 
-const Main = props => {
+export const Main = props => {
+  console.log("TRYING TO RENDER MAIN")
 
   const { children, handleClick, loggedIn } = props;
 
   return (
     <div>
       <h1>Harry Shopper</h1>
-      { NavBarContainer }
-      <div>
+      <NavbarContainer />
         <Products />
-      </div>
       { children }
     </div>
   );

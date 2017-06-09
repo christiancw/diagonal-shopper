@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, Route } from 'react-router';
 
 export default function Navbar (props) {
-  const categories = props.categories;
-
+  // const categories = props.categories;
+console.log("RENDER THE NAVBAR")
   return (
     <div>
       <button>
