@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import AuthForm from './AuthForm';
-import { auth } from '../reducer/user';
+import { auth } from '../../reducer/user';
 
 const mapLogin = ({ user }) => ({
   name: 'login',

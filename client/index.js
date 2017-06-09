@@ -5,7 +5,13 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
-import { Main, Login, Signup, UserHome } from './components';
+// import { Login, Signup, UserHome } from './react/components';
+import { Main } from './react/components/Main';
+import { Login, Signup } from './react/components/Auth';
+import { UserHome } from './react/components/UserHome';
+import { Products } from './react/components/Products';
+import { Product } from './react/components/Product';
+import { Cart } from './react/components/Cart';
 import { me } from './reducer/user';
 import axios from 'axios'
 import { getProducts } from './reducer/products'
@@ -58,6 +64,9 @@ ReactDOM.render(
           {/* <Route path="home" component={UserHome} onEnter={localCartToDbOrder} /> */}
           <Route path="home" component={UserHome} />
         </Route>
+        <Route path="products" component={Products} />
+        <Route path="products/:productId" component={Product} />
+        <Route path="cart" component={Cart} />
       </Route>
     </Router>
   </Provider>,
