@@ -12,7 +12,7 @@ const setSaltAndPassword = user => {
 module.exports = db.define('user', {
   name: {
     type: Sequelize.STRING,
-    allowNull: false
+    //allowNull: false
   },
   email: {
     type: Sequelize.STRING,
