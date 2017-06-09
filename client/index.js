@@ -9,6 +9,9 @@ import store from './store';
 import { Main } from './react/components/Main';
 import { Login, Signup } from './react/components/Auth';
 import { UserHome } from './react/components/UserHome';
+import { Products } from './react/components/Products';
+import { Product } from './react/components/Product';
+import { Cart } from './react/components/Cart';
 import { me } from './reducer/user';
 import axios from 'axios'
 import { getProducts } from './reducer/products'
@@ -47,6 +50,9 @@ ReactDOM.render(
         <Route onEnter={requireLogin}>
           <Route path="home" component={UserHome} />
         </Route>
+        <Route path="products" component={Products} />
+        <Route path="products/:productId" component={Product} />
+        <Route path="cart" component={Cart} />
       </Route>
     </Router>
   </Provider>,

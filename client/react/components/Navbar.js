@@ -2,22 +2,31 @@ import React from 'react';
 import { Link, Route } from 'react-router';
 
 export default function Navbar (props) {
-  // const categories = props.categories;
-console.log("RENDER THE NAVBAR")
+  const loggedIn = null;
+console.log("RENDER THE NAVBAR", props)
   return (
     <div>
-      <button>
+    { loggedIn ?
+      <div>
+        <button>
         <Link to="/home">Home</Link>
-      </button>
-      <button>
-        <Link to="/products">Products</Link>
-      </button>
-      <button>
+        </button>
+      </div> :
+      <div>
+        <button>
+        <Link to="/products">All Products</Link>
+        </button>
+        <button>
+        <Link to="/cart">Cart</Link>
+        </button>
+        <button>
         <Link to="/login">Login</Link>
-      </button>
-      <button>
+        </button>
+        <button>
         <Link to="/signup">Sign Up</Link>
-      </button>
+        </button>
+      </div>
+    }
     </div>
-  )
+  );
 }

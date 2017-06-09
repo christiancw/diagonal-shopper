@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { logout } from '../../reducer/user';
 import Products from './Products'
+import Cart from './Cart';
 import NavbarContainer from '../containers/NavbarContainer';
 
 // Component //
@@ -18,6 +19,7 @@ export const Main = props => {
       <h1>Harry Shopper</h1>
       <NavbarContainer />
         <Products />
+        <Cart />
       { children }
     </div>
   );
