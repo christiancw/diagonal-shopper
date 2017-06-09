@@ -35,6 +35,11 @@ const createApp = () => app
   }))
   .use(passport.initialize())
   .use(passport.session())
+  .use((req, res, next) => {
+    console.log('REQ', req.sessionID);
+    console.log('session', req.session);
+    next();
+  })
   .use('/auth', require('./auth'))
   .use('/api', require('./api'))
   .use((req, res, next) =>
@@ -45,7 +50,8 @@ const createApp = () => app
     res.status(err.status || 500).send(err.message || 'Internal server error.'));
 
 const syncDb = () =>
-  db.sync({force: true});
+  // db.sync({force: true});
+  db.sync();
 
 const listenUp = () =>
   app.listen(PORT, () =>

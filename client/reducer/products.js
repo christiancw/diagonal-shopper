@@ -5,7 +5,7 @@ import {browserHistory} from 'react-router';
 
 const GET_PRODUCTS = 'GET_PRODUCTS';
 const SELECT_PRODUCT = 'SELECT_PRODUCT';
-const ADD_PRODUCT = 'ADD_PRODUCT';
+const CREATE_PRODUCT = 'CREATE_PRODUCT';
 
 /*---------------------STATE---------------------*/
 
@@ -21,20 +21,26 @@ export const getProducts = products => ({
     products
 });
 
-export const add = product => ({
-    type: ADD_PRODUCT,
+export const create = product => ({
+    type: CREATE_PRODUCT,
     product
-})
+});
 
-export const select = product => ({type: SELECT_PRODUCT, product})
+export const select = product => ({type: SELECT_PRODUCT, product});
 
 
 /*---------------------DISPATCHERS---------------------*/
 
-export const addProduct = product => dispatch => {
+export const createProduct = product => dispatch => {
     axios.post('/api/products', product)
-        .then(res => dispatch(add(res.data)))
-        browserHistory.push('/')
+        .then(res => dispatch(create(res.data)));
+        browserHistory.push('/');
+};
+
+export const selectProduct = productId => dispatch => {
+    axios.get(`/api/products/${productId}`)
+        .then(res => dispatch(select(res.data)));
+        browserHistory.push('/'); // should redirect to product page
 };
 // export const me = () =>
 //     dispatch =>
@@ -51,9 +57,13 @@ export default function (state = productsInitialState, action) {
             return Object.assign({}, state, {
                 allProducts: action.products
             });
-        case ADD_PRODUCT:
+        case CREATE_PRODUCT:
             return Object.assign({}, state, {
                 allProducts: action.product
+            });
+        case SELECT_PRODUCT:
+            return Object.assign({}, state, {
+                selectedProduct: action.product
             });
         default:
             return state;
