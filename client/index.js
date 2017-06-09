@@ -5,7 +5,13 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import store from './store';
-import { Main, Login, Signup, UserHome } from './components';
+// import { Login, Signup, UserHome } from './react/components';
+import { Main } from './react/components/Main';
+import { Login, Signup } from './react/components/Auth';
+import { UserHome } from './react/components/UserHome';
+import { Products } from './react/components/Products';
+import { Product } from './react/components/Product';
+import { Cart } from './react/components/Cart';
 import { me } from './reducer/user';
 import axios from 'axios';
 import { getProducts } from './reducer/products';
@@ -41,7 +47,7 @@ const requireLogin = (nextRouterState, replace, next) =>
 
 const onHomeEnter = () => {
   axios.get('/api/products')
-    .then(function(res) {
+    .then(res => {
       return res.data
     })
     .then(foundProducts => {
@@ -50,22 +56,38 @@ const onHomeEnter = () => {
     .catch(console.error)
 }
 
+// const localCartToDbOrder = () => {
+
+//   axios.post('/api/orders', {
+//     status: 'created'
+//   })
+//     .then(res => {
+//       // res.data.userId = store.getState().user.id;
+//       const user = store.getState().user.id;
+//       user.addOrder(req.data);
+//     })
+//     .catch(console.error);
+// };
+
 
 ReactDOM.render(
   <MuiThemeProvider muiTheme={muiTheme}>
-  <Provider store={store}>
+    <Provider store={store}>
       <Router history={browserHistory}>
         <Route path="/" component={Main} onEnter={onHomeEnter}>
           <IndexRoute component={Login} />
           <Route path="login" component={Login} />
           <Route path="signup" component={Signup} />
           <Route onEnter={requireLogin}>
+            {/* <Route path="home" component={UserHome} onEnter={localCartToDbOrder} /> */}
             <Route path="home" component={UserHome} />
           </Route>
+          <Route path="products" component={Products} />
+          <Route path="products/:productId" component={Product} />
+          <Route path="cart" component={Cart} />
         </Route>
       </Router>
-  </Provider>
-  </MuiThemeProvider>
-  ,
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('app')
 );

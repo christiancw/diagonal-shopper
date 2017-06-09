@@ -22,7 +22,7 @@ router.param('productId', function (req, res, next, id) {
 });
 
 router.get('/', function(req, res, next) {
-  console.log(models);
+  // console.log(models);
   Product.findAll()
   .then(function(foundProducts){
     res.json(foundProducts);

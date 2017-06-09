@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { logout } from '../reducer/user';
+import { logout } from '../../reducer/user';
 import Products from './Products'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from './AppBar.js';
+import Cart from './Cart';
+import NavbarContainer from '../containers/NavbarContainer';
 
 // Component //
 
-const Main = props => {
+export const Main = props => {
+  console.log("TRYING TO RENDER MAIN")
 
   const { children, handleClick, loggedIn } = props;
 
@@ -31,7 +34,10 @@ const Main = props => {
           <Products />
         </div>
         <hr />
-        { children }
+      <NavbarContainer />
+        <Products />
+        <Cart />
+      { children }
     </div>
 
   );
