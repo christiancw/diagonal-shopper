@@ -42,11 +42,6 @@ export const selectReview = reviewId => dispatch => {
         .then(res => dispatch(select(res.data)));
         browserHistory.push('/'); // should redirect to review page
 };
-// export const me = () =>
-//     dispatch =>
-//     axios.get('/auth/me')
-//     .then(res =>
-//         dispatch(getUser(res.data || defaultUser)));
 
 
 /*---------------------REDUCERS---------------------*/
