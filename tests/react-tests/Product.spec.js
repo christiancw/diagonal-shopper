@@ -4,7 +4,7 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 import {shallow} from 'enzyme';
 
-import { Product } from './Product.js';
+import { Product } from '../../client/react/components/Product';
 
 describe('Product component', () => {
   const testProduct = {name: 'Nimbus 2000', department: 'Brooms', price: 300.00, availableInventory: 5, description: 'An alright broom.'}
