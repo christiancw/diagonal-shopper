@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import localStore from 'store';
@@ -21,6 +20,9 @@ export const Product = ({ selectedProduct }) => {
   return (
     <div>
       <h2>{selectedProduct.name}</h2>
+      <h5>{`in ${selectedProduct.department}`}</h5>
+      <img src={selectedProduct.imgUrl} />
+      <p>{selectedProduct.description}</p>
       <button onClick={() => addToCart()}>Add To Cart</button>
 
     </div>
@@ -29,15 +31,10 @@ export const Product = ({ selectedProduct }) => {
 
 
 const mapState = state => {
+  console.log(state);
   return {
     selectedProduct: state.products.selectedProduct
   };
 };
 
-const mapDispatch = dispatch => {
-  return {
-
-  };
-};
-
-export default connect(mapState, mapDispatch)(Product);
+export default connect(mapState)(Product);

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import { browserHistory, Link } from 'react-router';
+// import muiThemeable from 'material-ui/styles/muiThemeable';
 import { selectProduct } from '../../reducer/products';
 
 // import Product from '/Product';
@@ -18,7 +18,7 @@ const Products = ({ products, setProduct }) => {
           {/* <Link className="thumbnail" to={`/products/${product.id}`} /> */}
           <img src={product.imageURL} />
           <h4>{product.name}</h4>
-          <button onClick={() => setProduct(product)}>Go To Product Page</button>
+          <Link to={`/products/${product.id}`} onClick={() => setProduct(product)}>Go To Product Page</Link>
         </div>
       ))}
     </div>
@@ -41,6 +41,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     setProduct(product) {
+      // browserHistory.push(`/products/${product.id}`)
       dispatch(selectProduct(product.id));
     }
   };
