@@ -1,8 +1,8 @@
 const chai = require('chai');
 const Promise = require('bluebird');
 const expect = chai.expect;
-const db = require('../db');
-const app = require('../index');
+const db = require('../../server/db');
+const app = require('../../server/index');
 const Product = db.model('product');
 // const agent = supertest.agent(app);
 const request = require('supertest');
