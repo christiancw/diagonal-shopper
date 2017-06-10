@@ -21,7 +21,7 @@ export const Product = ({ selectedProduct }) => {
     <div>
       <h2>{selectedProduct.name}</h2>
       <h5>{`in ${selectedProduct.department}`}</h5>
-      <img src={selectedProduct.imgUrl} />
+      <img src={selectedProduct.imageURL} />
       <p>{selectedProduct.description}</p>
       <button onClick={() => addToCart()}>Add To Cart</button>
 
