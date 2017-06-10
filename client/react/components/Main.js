@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { logout } from '../../reducer/user';
 import Products from './Products'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from '../components/AppBar.js';
+import AppBar from './AppBar.js';
 import Cart from './Cart';
 import NavbarContainer from '../containers/NavbarContainer';
 
