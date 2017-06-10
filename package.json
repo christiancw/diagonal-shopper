@@ -35,9 +35,9 @@
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
     "sequelize": "^3.30.2",
+    "store": "^2.0.4",
     "supertest-as-promised": "^4.0.2",
-    "ui": "^0.2.4",
-    "store": "^2.0.4"
+    "ui": "^0.2.4"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
