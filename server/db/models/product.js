@@ -11,16 +11,20 @@ module.exports = db.define('product', {
     type: Sequelize.STRING
   },
   categories: {
-    type: Sequelize.ARRAY(Sequelize.TEXT)
+    type: Sequelize.ENUM('Wands', 'Potions', 'Brooms'),
+    // allowNull: false
   },
   imageURL: {
     type: Sequelize.STRING
+    // defaultValue: -insert placeholder image url later-
   },
   price: {
     type: Sequelize.INTEGER
+    // allowNull: false
   },
   availableInventory: {
     type: Sequelize.INTEGER
+    // allowNull: false
   },
   description: {
     type: Sequelize.TEXT
