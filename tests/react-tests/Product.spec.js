@@ -18,4 +18,8 @@ describe('Product component', () => {
     expect(productComponent.find('h2')).to.have.html('<h2>Nimbus 2000</h2>');
   });
 
+  it('displays the product description as a p', () => {
+    expect(productComponent.find('p')).to.have.html('An alright broom.');
+  });
+
 });
