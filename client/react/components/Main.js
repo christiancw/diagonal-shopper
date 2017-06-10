@@ -19,7 +19,9 @@ export const Main = props => {
   return (
 
     <div>
+    {/*<MuiThemeProvider>*/}
       <AppBar />
+    {/*</MuiThemeProvider>*/}
         {/*{ loggedIn ?
             <nav>
               <Link to="/home">Home</Link>
@@ -31,13 +33,12 @@ export const Main = props => {
             </nav>
         }*/}
         <div>
-          <Products />
         </div>
         <hr />
-      <NavbarContainer />
-        <Products />
-        <Cart />
+        {/*<Products />
+        <Cart />*/}
       { children }
+      <Products />
     </div>
 
   );
