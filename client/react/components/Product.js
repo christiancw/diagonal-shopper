@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import localStore from 'store';
 
 
-const Product = ({ selectedProduct }) => {
+export const Product = ({ selectedProduct }) => {
   function addToCart(quantity) {
     const storeKey = String(selectedProduct.id);
     const retrieved = localStore.get(storeKey);
@@ -20,7 +20,7 @@ const Product = ({ selectedProduct }) => {
 
   return (
     <div>
-      <h3> selectedProduct.name </h3>
+      <h2>{selectedProduct.name}</h2>
       <button onClick={() => addToCart()}>Add To Cart</button>
 
     </div>
