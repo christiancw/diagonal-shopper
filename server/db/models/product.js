@@ -15,7 +15,8 @@ module.exports = db.define('product', {
   //   type: Sequelize.ARRAY(Sequelize.TEXT)
   // }, because apparently array is not the way to go... let's use depts for simplicity then
   imageURL: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: 'http://i.imgur.com/7sIG7sF.jpg'
   },
   price: {
     type: Sequelize.DECIMAL,
