@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const request = require('supertest');
 const db = require('../../server/db');
 const app = require('../../server/index');
-const Order = db.model('order');
+const Review = db.model('review');
 
 describe('Review routes', () => {
 
