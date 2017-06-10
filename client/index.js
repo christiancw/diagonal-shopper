@@ -11,6 +11,8 @@ import { Login, Signup } from './react/components/Auth';
 import { UserHome } from './react/components/UserHome';
 import { Products } from './react/components/Products';
 import { Product } from './react/components/Product';
+import { Reviews } from './react/components/Reviews';
+import { ReviewsContainer } from './react/containers/ReviewsContainer';
 import { Cart } from './react/components/Cart';
 import { me } from './reducer/user';
 import axios from 'axios';
@@ -85,6 +87,7 @@ ReactDOM.render(
           <Route path="products" component={Products} />
           <Route path="products/:productId" component={Product} />
           <Route path="cart" component={Cart} />
+          <Route path="reviews" component={Reviews} />
         </Route>
       </Router>
     </Provider>

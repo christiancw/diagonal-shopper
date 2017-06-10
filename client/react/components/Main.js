@@ -12,7 +12,7 @@ import NavbarContainer from '../containers/NavbarContainer';
 // Component //
 
 export const Main = props => {
-  console.log("TRYING TO RENDER MAIN")
+  console.log("Props===>", props);
 
   const { children, handleClick, loggedIn } = props;
 
@@ -35,8 +35,6 @@ export const Main = props => {
         </div>
         <hr />
       <NavbarContainer />
-        <Products />
-        <Cart />
       { children }
     </div>
 
