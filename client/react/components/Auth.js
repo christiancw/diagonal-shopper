@@ -4,6 +4,7 @@ import { auth, logout } from '../../reducer/user';
 import AppBar from './AppBar';
 
 const mapLogin = ({ user }) => ({
+  user,
   name: 'login',
   displayName: 'Login',
   error: user.error

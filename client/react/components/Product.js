@@ -21,9 +21,6 @@ export const Product = ({ selectedProduct }) => {
   return (
     <div>
       <Card>
-        <CardHeader
-          title={selectedProduct.name}
-          subtitle={`in ${selectedProduct.department}`} />
           <CardMedia
             overlay={<CardTitle title={selectedProduct.name} subtitle={`in ${selectedProduct.department}`} />}>
               <img src={selectedProduct.imageURL} />
