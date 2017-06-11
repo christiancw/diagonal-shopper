@@ -26,7 +26,8 @@ const muiTheme = getMuiTheme({
     primary1Color: "#6A8EAE",
     primary2Color: "9BD1E5",
     primary3Color: "#BEBBBB",
-    textColor: darkBlack
+    textColor: darkBlack,
+    borderColor: "#BEBBBB"
   }
   // ,
   // userAgent: req.headers['user-agent'],

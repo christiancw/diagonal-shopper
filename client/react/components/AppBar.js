@@ -14,7 +14,7 @@ import { Login, Signup, Logout } from './Auth';
 const buttonStyle = {
   backgroundColor: 'transparent',
   color:'white',
-  width: "20%",
+  width: "15%",
   height: '100%',
   margin: 12
 };
