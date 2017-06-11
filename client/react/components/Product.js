@@ -5,6 +5,7 @@ import localStore from 'store';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
+// this export is FOR UNIT TESTING. DO NOT import this into react-router index
 export const Product = ({ selectedProduct }) => {
   function addToCart(quantity) {
     const storeKey = String(selectedProduct.id);
