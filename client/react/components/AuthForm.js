@@ -5,10 +5,14 @@ import FlatButton from 'material-ui/FlatButton';
 
 const AuthForm = props => {
 
-  const { name, displayName, handleSubmit, error } = props;
+  const { user, name, displayName, handleSubmit, error } = props;
 
   return (
-    <div>
+    user && user.id
+    ?
+    null
+    :
+    (<div>
       <form action="/" name={name} onSubmit={handleSubmit}>
         <TextField
           name="email"
@@ -28,7 +32,7 @@ const AuthForm = props => {
         { error &&  <div> { error.response.data } </div> }
       </form>
       <a href="/auth/google">{ displayName } with Google</a>
-    </div>
+    </div>)
   );
 
   /*return (
