@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import localStore from 'store';
-
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 export const Product = ({ selectedProduct }) => {
   function addToCart(quantity) {
@@ -19,6 +20,27 @@ export const Product = ({ selectedProduct }) => {
 
   return (
     <div>
+      <Card>
+        <CardHeader
+          title={selectedProduct.name}
+          subtitle={`in ${selectedProduct.department}`} />
+          <CardMedia
+            overlay={<CardTitle title={selectedProduct.name} subtitle={`in ${selectedProduct.department}`} />}>
+              <img src={selectedProduct.imageURL} />
+          </CardMedia>
+          <CardText>
+            {selectedProduct.description}
+          </CardText>
+          <CardActions>
+            <FlatButton label="Add To Cart" onClick={() => addToCart()} />
+            <FlatButton label="Reviews" />
+          </CardActions>
+      </Card>
+    </div>
+  )
+};
+  /*return (
+    <div>
       <h2>{selectedProduct.name}</h2>
       <h5>{`in ${selectedProduct.department}`}</h5>
       <img src={selectedProduct.imageURL} />
@@ -27,8 +49,7 @@ export const Product = ({ selectedProduct }) => {
 
     </div>
   );
-};
-
+};*/
 
 const mapState = state => {
   console.log(state);

@@ -19,7 +19,6 @@ export const Main = props => {
 
     <div>
       <AppBar />
-        <hr />
       { children }
       <Products />
     </div>
@@ -29,6 +28,5 @@ export const Main = props => {
 
 Main.propTypes = {
   children: PropTypes.object,
-
 };
 
