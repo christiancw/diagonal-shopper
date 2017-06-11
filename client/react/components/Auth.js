@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import AuthForm from './AuthForm';
-import { auth } from '../../reducer/user';
+import { auth, logout } from '../../reducer/user';
+import AppBar from './AppBar';
 
 const mapLogin = ({ user }) => ({
   name: 'login',
