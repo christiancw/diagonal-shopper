@@ -13,13 +13,13 @@ const AuthForm = props => {
     null
     :
     (<div>
-      <form action="/" name={name} onSubmit={handleSubmit}>
+      <form action="/" name={ name } onSubmit={ handleSubmit }>
         <TextField
           name="email"
           floatingLabelText="E-mail"
           hintText="E-mail"
           type="text"
-          errorText={error}
+          errorText={ error }
         />
         <br />
         <TextField
@@ -28,7 +28,11 @@ const AuthForm = props => {
           type="password"
           name="password"
         />
-        <FlatButton type="submit" label={ displayName } labelStyle={{position: 'absolute',top: 0,left: -10}} primary={ true }/>
+        <FlatButton
+          type="submit"
+          label={ displayName }
+          labelStyle={{ position: 'absolute',top: 0,left: -10 }}
+          primary={ true }/>
         { error &&  <div> { error.response.data } </div> }
       </form>
       <a href="/auth/google">{ displayName } with Google</a>
