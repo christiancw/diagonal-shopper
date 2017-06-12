@@ -11,20 +11,20 @@ describe('Product model', () => {
   it('has all the right fields', function(){
     return Product.create({
       name: '',
-      department: '',
-      categories: [],
+      department: 'Potions',
+      // categories: [],
       imageURL: '',
-      price: null,
-      quantity: null,
+      price: 50.00,
+      availableInventory: 10,
       description: ''
     })
     .then(function (savedProduct) {
       expect(savedProduct.name).to.equal('');
-      expect(savedProduct.department).to.equal('');
-      expect(savedProduct.categories.length).to.equal(0);
+      expect(savedProduct.department).to.equal('Potions');
+      // expect(savedProduct.categories.length).to.equal(0);
       expect(savedProduct.imageURL).to.equal('');
-      expect(savedProduct.price).to.equal(null);
-      expect(savedProduct.quantity).to.equal(null);
+      expect(+savedProduct.price).to.equal(50);
+      expect(savedProduct.availableInventory).to.equal(10);
       expect(savedProduct.description).to.equal('');
     });
   });
