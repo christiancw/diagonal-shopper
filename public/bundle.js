@@ -28123,15 +28123,23 @@ var _Auth = __webpack_require__(149);
 
 var _UserHome = __webpack_require__(251);
 
+var _UserHome2 = _interopRequireDefault(_UserHome);
+
 var _Products = __webpack_require__(150);
 
+var _Products2 = _interopRequireDefault(_Products);
+
 var _Product = __webpack_require__(250);
+
+var _Product2 = _interopRequireDefault(_Product);
 
 var _Reviews = __webpack_require__(95);
 
 var _ReviewsContainer = __webpack_require__(151);
 
 var _Cart = __webpack_require__(94);
+
+var _Cart2 = _interopRequireDefault(_Cart);
 
 var _Checkout = __webpack_require__(248);
 
@@ -28255,11 +28263,11 @@ _reactDom2.default.render(_react2.default.createElement(
         _react2.default.createElement(
           _reactRouter.Route,
           { onEnter: requireLogin },
-          _react2.default.createElement(_reactRouter.Route, { path: 'home', component: _UserHome.UserHome })
+          _react2.default.createElement(_reactRouter.Route, { path: 'home', component: _UserHome2.default })
         ),
-        _react2.default.createElement(_reactRouter.Route, { path: 'products', component: _Products.Products }),
-        _react2.default.createElement(_reactRouter.Route, { path: 'products/:productId', component: _Product.Product }),
-        _react2.default.createElement(_reactRouter.Route, { path: 'cart', component: _Cart.Cart, onEnter: onCheckoutEnter }),
+        _react2.default.createElement(_reactRouter.Route, { path: 'products', component: _Products2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: 'products/:productId', component: _Product2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: 'cart', component: _Cart2.default, onEnter: onCheckoutEnter }),
         _react2.default.createElement(_reactRouter.Route, { path: 'checkout', component: _Checkout2.default, onEnter: onCheckoutEnter })
       )
     )
