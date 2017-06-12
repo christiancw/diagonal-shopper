@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const Order = require('../db').model('order');
+const OrderItem = require('../db').model('orderitem');
+const User = require('../db').model('user');
 const HttpError = require('./utils/HttpError');
 module.exports = router;
 
@@ -26,11 +28,30 @@ router.post('/', (req, res, next) => {
 
   Order.create({
     status,
-    totalPrice,
-    dateSubmitted
+    totalPrice: totalPrice || null,
+    dateSubmitted: dateSubmitted || null
   })
   .then(createdOrder => res.status(201).json(createdOrder))
   .catch(next);
+});
+
+router.post('/cart', (req, res, next) => {
+  const { status, email, localCart } = req.body;
+
+  User.findOne({ where: { email }})
+    .then(user => Order.create({ status }).then(createdOrder => createdOrder.setUser(user)))
+    .then(userAssociatedOrder => {
+      const identifiedOrderItems = Object.keys(localCart).map(itemKey => {
+        const item = localCart[itemKey];
+        return OrderItem.create({ quantity: item.quantity })
+          .then(createdItem => createdItem.setOrder(userAssociatedOrder))
+          .then(orderAssociatedItem => orderAssociatedItem.setProduct(item.selectedProduct.id));
+        });
+
+      return Promise.all(identifiedOrderItems);
+    })
+    .then(res.json.bind(res))
+    .catch(next);
 });
 
 router.get('/:orderId', (req, res, next) => {
