@@ -57,7 +57,7 @@ export const createOrder = order => dispatch => {
 };
 
 export const addToOrder = order => dispatch => {
-    axios.post('/api/orders/cart', order)
+    axios.post(`/api/orders/cart/${order.id}`, order)
         .then(res => dispatch(add(res.data)));
 };
 
@@ -95,11 +95,11 @@ export default function (state = ordersInitialState, action) {
         case ADD_ITEM:
             return Object.assign({}, state, {
             cart: state.cart.orderItems.concat(action.order)
-        })
+        });
         case REMOVE_ITEM:
             return Object.assign({}, state, {
             cart: state.cart.orderItem.filter(item => item.id !== action.id)
-            })
+        });
         case SELECT_ORDER:
             return Object.assign({}, state, {
                 selectedOrder: action.order
