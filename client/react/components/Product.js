@@ -6,6 +6,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 
 // this export is FOR UNIT TESTING. DO NOT import this into react-router index
+
 export const Product = ({ selectedProduct }) => {
   function addToCart() {
   // function addToCart(quantity) {
@@ -26,14 +27,14 @@ export const Product = ({ selectedProduct }) => {
     <div>
       <Card>
           <CardMedia
-            overlay={<CardTitle title={selectedProduct.name} subtitle={`in ${selectedProduct.department}`} />}>
-              <img src={selectedProduct.imageURL} />
+            overlay={<CardTitle title={ selectedProduct.name } subtitle={ `in ${selectedProduct.department}` } />}>
+              <img src={ selectedProduct.imageURL } />
           </CardMedia>
           <CardText>
-            {selectedProduct.description}
+            { selectedProduct.description }
           </CardText>
           <CardActions>
-            <FlatButton label="Add To Cart" onClick={() => addToCart()} />
+            <FlatButton label="Add To Cart" onClick={ () => addToCart() } />
             <FlatButton label="Reviews" />
           </CardActions>
       </Card>

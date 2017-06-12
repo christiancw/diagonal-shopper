@@ -44,7 +44,10 @@ const Products = ({ products, setProduct }) => {
       <Subheader>Available Products</Subheader>
       {/* We can get category/search term from state?? */}
       {/*<h3>Results for ***Category or search term?***</h3>*/}
-      {products && products.map(product => (
+      {
+        //if category is selected then filter based off category
+        // else v
+        products && products.map(product => (
         <GridTile
           linkButton={ true }
           containerElement={<Link to={`/products/${product.id}`} onClick={() => setProduct(product)} />}

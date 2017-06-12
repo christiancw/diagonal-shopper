@@ -19,7 +19,6 @@ const AuthForm = props => {
           floatingLabelText="E-mail"
           hintText="E-mail"
           type="text"
-          errorText={ error }
         />
         <br />
         <TextField
