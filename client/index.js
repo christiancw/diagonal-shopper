@@ -12,6 +12,7 @@ import UserHome from './react/components/UserHome';
 import Products from './react/components/Products';
 import Product from './react/components/Product';
 import Cart from './react/components/Cart';
+import Checkout from './react/components/Checkout';
 import { me } from './reducer/user';
 import axios from 'axios';
 import { getProducts } from './reducer/products';
@@ -93,6 +94,7 @@ ReactDOM.render(
           <Route path="products" component={Products} />
           <Route path="products/:productId" component={Product} />
           <Route path="cart" component={Cart} />
+          <Route path="/checkout" component={Checkout} />
         </Route>
       </Router>
     </Provider>
