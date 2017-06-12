@@ -50,7 +50,7 @@ const Products = ({ products, setProduct }) => {
         products && products.map(product => (
         <GridTile
           linkButton={ true }
-          containerElement={<Link to={`/products/${product.id}`} onClick={()=> setProduct(product)}/>}
+          containerElement={<Link to={`/products/${product.id}`} />}
           key={product.id}
           title={product.name}
           subtitle={<span>{product.description}</span>}
@@ -85,10 +85,6 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    setProduct(product) {
-      // browserHistory.push(`/products/${product.id}`)
-      dispatch(selectProduct(product.id));
-    },
     handleChange(event){
       //fill in with event for categories
     }

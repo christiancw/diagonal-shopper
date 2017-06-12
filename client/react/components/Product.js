@@ -102,12 +102,4 @@ const mapState = state => {
   };
 };
 
-const mapDispatch = function (dispatch) {
-  return {
-    setProduct (product) {
-      dispatch(selectProduct(product.id));
-    }
-  };
-};
-
-export default connect(mapState, mapDispatch)(Product);
+export default connect(mapState)(Product);
