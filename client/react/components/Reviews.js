@@ -1,11 +1,22 @@
 import React from 'react';
 
-export default function Reviews (props) {
-  // const selectedReview = this.props.selectedReview;
-  // const reviews = this.props.reviews;
-  return (
-    <div>
-      <h1>THIS IS WHERE THE REVIEWS WILL BE</h1>
-    </div>
-  );
-}
+export default class Reviews extends React.Component {
+  componentDidMount(){
+    this.props.onLoadReviews()
+  }
+  render () {
+    const reviews = this.props.allReviews;
+    console.log('reviews', this);
+    return (
+      <div>
+        <h2>Product Reviews</h2>
+          {reviews && reviews.map(review => {
+            return (
+              <ul className="list-unstyled" key={review.id}>
+                <li>{review.content}</li>
+              </ul>
+            );
+          }
+          )}
+      </div>)
+    }}

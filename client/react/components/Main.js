@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { logout } from '../../reducer/user';
 import Products from './Products'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from './AppBar.js';
 import Cart from './Cart';
+import Reviews from './Reviews'; //just for development to see fetched reviews
+import ReviewsContainer from '../containers/ReviewsContainer';
 import NavbarContainer from '../containers/NavbarContainer';
 
 // Component //
@@ -14,12 +15,11 @@ import NavbarContainer from '../containers/NavbarContainer';
 export const Main = props => {
   console.log("Props===>", props);
 
-  const { children, handleClick, loggedIn } = props;
+  const { children } = props;
 
   return (
 
     <div>
-    {/*<MuiThemeProvider>*/}
       <AppBar />
     {/*</MuiThemeProvider>*/}
         {/*{ loggedIn ?
@@ -35,7 +35,9 @@ export const Main = props => {
         </div>
         }*/}
         <hr />
+        <ReviewsContainer />
       { children }
+
       <Products />
     </div>
 
@@ -44,20 +46,4 @@ export const Main = props => {
 
 Main.propTypes = {
   children: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
-  loggedIn: PropTypes.bool.isRequired
 };
-
-// Container //
-
-const mapState = ({ user }) => ({
-  loggedIn: !!user.id
-});
-
-const mapDispatch = dispatch => ({
-  handleClick () {
-    dispatch(logout());
-  }
-});
-
-export default connect(mapState, mapDispatch)(Main);

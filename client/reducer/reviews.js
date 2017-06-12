@@ -9,8 +9,14 @@ const CREATE_REVIEW = 'CREATE_REVIEW';
 
 /*---------------------STATE---------------------*/
 
+const hardcodedReviews = [
+  { id: 1, rating: 2, date: null, content: 'bla, bla bla'},
+  {id: 2, rating: 3, date: null, content: 'bloop bloop'},
+  {id: 3, rating: 4, date: null, content: 'agowibqiorbqoinbraweg'}
+];
+
 const reviewsInitialState = ({
-    allReviews: [],
+    allReviews: hardcodedReviews,
     selectedReview: {}
 })
 
@@ -18,7 +24,7 @@ const reviewsInitialState = ({
 
 export const getReviews = reviews => ({
     type: GET_REVIEWS,
-    reviews
+    reviews: reviews
 });
 
 export const create = review => ({
@@ -30,6 +36,22 @@ export const select = review => ({type: SELECT_REVIEW, review});
 
 
 /*---------------------DISPATCHERS---------------------*/
+
+export const loadReviews = function () {
+  return function(dispatch) {
+    axios.get('/api/reviews')
+    .then(function (res) {
+      return res.data;
+    })
+    .then(function (reviews) {
+      const action = getReviews(reviews)
+      dispatch(action);
+    })
+    .catch(function (err) {
+      console.error(err);
+    });
+  };
+};
 
 export const createReview = review => dispatch => {
     axios.post('/api/reviews', review)
@@ -54,7 +76,7 @@ export default function (state = reviewsInitialState, action) {
             });
         case CREATE_REVIEW:
             return Object.assign({}, state, {
-                allReviews: action.review
+                allReviews: action.reviews
             });
         case SELECT_REVIEW:
             return Object.assign({}, state, {

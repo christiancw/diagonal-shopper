@@ -21,6 +21,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {darkBlack} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import localStore from 'store';
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
@@ -28,7 +29,8 @@ const muiTheme = getMuiTheme({
     primary1Color: "#6A8EAE",
     primary2Color: "9BD1E5",
     primary3Color: "#BEBBBB",
-    textColor: darkBlack
+    textColor: darkBlack,
+    borderColor: "#BEBBBB"
   }
   // ,
   // userAgent: req.headers['user-agent'],
@@ -56,7 +58,13 @@ const onHomeEnter = () => {
       store.dispatch(getProducts(foundProducts))
     })
     .catch(console.error)
-}
+};
+
+// const onCartEnter = () => {
+//   localStore.each(function(value, key) {
+// 	console.log(key, '==', value);
+// });
+// };
 
 // const localCartToDbOrder = () => {
 

@@ -1,8 +1,12 @@
 import { connect } from 'react-redux';
 import AuthForm from './AuthForm';
-import { auth } from '../../reducer/user';
+import { auth, logout } from '../../reducer/user';
+import AppBar from './AppBar';
+import localStore from 'store';
+import axios from 'axios';
 
 const mapLogin = ({ user }) => ({
+  user,
   name: 'login',
   displayName: 'Login',
   error: user.error
@@ -17,12 +21,14 @@ const mapSignup = ({ user }) => ({
 const mapDispatch = dispatch => ({
   handleSubmit (evt) {
     evt.preventDefault();
-    const formName = evt.target.name;
+    const formName = evt.target.name; // login or signup
     const email = evt.target.email.value;
     const password = evt.target.password.value;
     dispatch(auth(email, password, formName));
+    // localCartToDb(email, formName);
   }
 });
+
 
 export const Login = connect(mapLogin, mapDispatch)(AuthForm);
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm);

@@ -8,6 +8,8 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 // import Product from '/Product';
 
@@ -21,12 +23,21 @@ const styles = {
     width: '70%',
     height: '50%',
     overflowY: 'auto'
+  },
+  customWidth: {
+    width: '150'
   }
 };
 
 const Products = ({ products, setProduct }) => {
   return (
     <div style={styles.root}>
+      <SelectField
+        floatingLabelText="Categories">
+        <MenuItem value={1} primaryText="Wands" />
+        <MenuItem value={2} primaryText="Brooms" />
+        <MenuItem value={3} primaryText="Potions" />
+      </SelectField>
       <GridList
         cellHeight={180}
         style={styles.gridList}>
@@ -48,7 +59,7 @@ const Products = ({ products, setProduct }) => {
     </div>
   );
 };
-        // <Product key={product.id} product={product} />
+        /*// <Product key={product.id} product={product} />
         /*<Link className="thumbnail" to={`/products/${product.id}`} />
         <div className="col-xs-4" key={product.id}>
           <img src={product.imageURL} />
@@ -64,7 +75,7 @@ const Products = ({ products, setProduct }) => {
 // products should be pre-filtered by category before it gets here?
 const mapState = (state) => {
   return {
-    products: state.products.allProducts,
+    products: state.products.allProducts
   };
   //.filter(p => p.categories.includes(selectedCategory
 };
@@ -74,6 +85,9 @@ const mapDispatch = (dispatch) => {
     setProduct(product) {
       // browserHistory.push(`/products/${product.id}`)
       dispatch(selectProduct(product.id));
+    },
+    handleChange(event){
+      //fill in with event for categories
     }
   };
 };
