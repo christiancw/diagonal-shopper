@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const Order = require('../db').model('order');
+const OrderItem = require('../db').model('orderitem');
+const User = require('../db').model('user');
 const HttpError = require('./utils/HttpError');
 module.exports = router;
 
@@ -26,11 +28,31 @@ router.post('/', (req, res, next) => {
 
   Order.create({
     status,
-    totalPrice,
-    dateSubmitted
+    totalPrice: totalPrice || null,
+    dateSubmitted: dateSubmitted || null
   })
   .then(createdOrder => res.status(201).json(createdOrder))
   .catch(next);
+});
+
+router.post('/cart', (req, res, next) => {
+  const { status, email, localCart } = req.body;
+
+  User.findOrCreate({ where: { email }})
+    .then(user => Order.create({ status, userId: user.id }))
+    .then(createdOrder => {
+      const identifiedOrderItems = Object.keys(localCart).map(itemKey => {
+        return {
+          quantity: localCart[itemKey].quantity,
+          productId: localCart[itemKey].product.id,
+          orderId: createdOrder.id
+        };
+      });
+
+      return OrderItem.bulkCreate(identifiedOrderItems);
+    })
+    .then(bulkCreated => res.status(201).json(bulkCreated))
+    .catch(next);
 });
 
 router.get('/:orderId', (req, res, next) => {
