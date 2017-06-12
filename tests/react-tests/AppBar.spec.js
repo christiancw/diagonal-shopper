@@ -14,19 +14,20 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 describe('AppBar component', () => {
   it('renders AppBar and overwrite styles', () => {
     const style = { backgroundColor: 'red' };
-    const wrapper = shallowWithContext(
-      <AppBar title="Title" style={ style } />
+    const wrapper = shallow(
+      <AppBar />
     );
     it('has a title', () => {
       expect(wrapper.props.title).to.equal('Title');
     });
+
+    assert.strictEqual(
+      wrapper.get(0).props.style.backgroundColor,
+      style.backgroundColor,
+      'should have backgroundColor to red');
   });
 });
 
-  //   assert.strictEqual(
-  //     wrapper.get(0).props.style.backgroundColor,
-  //     style.backgroundColor,
-  //     'should have backgroundColor to red');
   // let sandbox;
   // var jsdom = require('jsdom').jsdom;
   // var exposedProperties = ['window', 'navigator', 'document'];
@@ -57,7 +58,5 @@ describe('AppBar component', () => {
   // it('should render a div for buttons', () => {
   //   {
   //     const props = {
-  //       user, handleClick
   //     }
   //   }
-  // });

@@ -1,5 +1,5 @@
 import React from 'react';
-import AppBar from 'material-ui/AppBar';
+import MaterialAppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
@@ -23,11 +23,10 @@ const buttonStyle = {
 
 
 const AppBarButtons = ({ user, handleClick }) => {
-console.log(user, "asdfjasldkfjaskdf");
 
 return (
   <div>
-    <AppBar
+    <MaterialAppBar
       style={{ height:'60px' , margin: 0}}
       iconElementLeft={(
         <img src="http://i63.tinypic.com/mmvt4x.png" style={{ height: '100%' }} />)}
@@ -79,9 +78,9 @@ return (
         </div>)
       }
 
-    </AppBar>
+    </MaterialAppBar>
   </div>
-  )
+  );
 };
 
 const mapStateToProps = ({ user }) => ({ user });
