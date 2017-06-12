@@ -35,7 +35,6 @@ export const Main = props => {
         </div>
         }*/}
         <hr />
-        <ReviewsContainer />
       { children }
 
       <Products />
