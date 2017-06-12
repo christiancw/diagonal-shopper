@@ -50,7 +50,7 @@ const Products = ({ products, setProduct }) => {
         products && products.map(product => (
         <GridTile
           linkButton={ true }
-          containerElement={<Link to={`/products/${product.id}`} onClick={() => setProduct(product)} />}
+          containerElement={<Link to={`/products/${product.id}`} />}
           key={product.id}
           title={product.name}
           subtitle={<span>{product.description}</span>}

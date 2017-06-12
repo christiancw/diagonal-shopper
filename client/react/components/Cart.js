@@ -14,35 +14,47 @@ export default class Cart extends React.Component {
           localStore.each((value, key) => {
             thingsInStorage[key] = value;
           });
-          
+
           this.state = {
             thingsInStorage: thingsInStorage
           };
   }
 
-render() {
-  const items = this.state.thingsInStorage;
-  const itemsArray = Object.keys(items).map(function (key) { return items[key]; })
-  return (
-    <div>
-    <h2>THIS IS THE CART</h2>
-    <div>
-      <h2>{console.log("hi ho items", itemsArray)}</h2>
-      {itemsArray && itemsArray.map(product => (
-        <GridTile
+  render() {
+    const items = this.state.thingsInStorage;
+    const itemsArray = Object.keys(items).map(function (key) { return items[key]; })
+    return (
+      <div>
+      <h2>Items in Cart</h2>
+      <div>
+        <h2>{console.log("hi ho items", itemsArray)}</h2>
+        {itemsArray && itemsArray.map(product => (
+          <GridTile
+            linkButton={ true }
+            containerElement={<Link to={`/products/${product.selectedProduct.id}`} />}
+            key={product.selectedProduct.id + product.quantity}
+            title={product.selectedProduct.name}
+            subtitle={<span>{product.selectedProduct.description}</span>}
+            actionIcon={<IconButton></IconButton>}>
+            <img src={product.selectedProduct.imageURL} />
+            <h4>{product.quantity}</h4>
+          </GridTile>
+        ))}
+      </div>
+        <FlatButton
+          label="Checkout"
+          style={{
+            backgroundColor: "#6A8EAE",
+            color: "white",
+            width: '25%',
+            height: '50px',
+            margin: 12
+          }}
           linkButton={ true }
-          containerElement={<Link to={`/products/${product.selectedProduct.id}`} />}
-          key={product.selectedProduct.id + product.quantity}
-          title={product.selectedProduct.name}
-          subtitle={<span>{product.selectedProduct.description}</span>}
-          actionIcon={<IconButton></IconButton>}>
-          <img src={product.selectedProduct.imageURL} />
-          <h4>{product.quantity}</h4>
-        </GridTile>
-      ))}
-    </div>
-    </div>
+          containerElement={<Link to="/checkout" />}
+        />
+      </div>
 
-  )
-}
+    );
+  }
 }
