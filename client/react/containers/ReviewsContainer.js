@@ -11,7 +11,8 @@ const hardcodedReviews = [
 const mapStateToProps = (state) => {
   return {
     allReviews: state.reviews.allReviews,
-    selectedReview: state.reviews.selectedReview
+    selectedReview: state.reviews.selectedReview,
+    selectedProduct: state.products.selectedProduct
   };
 }
 

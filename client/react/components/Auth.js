@@ -1,9 +1,6 @@
 import { connect } from 'react-redux';
 import AuthForm from './AuthForm';
 import { auth, logout } from '../../reducer/user';
-import AppBar from './AppBar';
-import localStore from 'store';
-import axios from 'axios';
 
 const mapLogin = ({ user }) => ({
   user,
@@ -25,7 +22,6 @@ const mapDispatch = dispatch => ({
     const email = evt.target.email.value;
     const password = evt.target.password.value;
     dispatch(auth(email, password, formName));
-    // localCartToDb(email, formName);
   }
 });
 
