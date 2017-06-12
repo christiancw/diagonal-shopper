@@ -64,9 +64,12 @@ function localCartToDb (email, method) {
   // post all order items
   // post an order, associate all items
   // associate user
-  console.log('form name method', method);
   if (method === 'signup') {
     return axios.post('/api/orders/cart', { status: 'created', email, localCart })
+      .then(console.log.bind(console))
+      .catch(console.error);
+  } else {
+    return axios.put('/api/order/cart', { status: 'created', email, localCart })
       .then(console.log.bind(console))
       .catch(console.error);
   }
