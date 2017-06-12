@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('../db').model('user');
-const Order = require('../db').model('order')
+const Order = require('../db').model('order');
+const OrderItem = require('../db').model('orderitem');
 
 module.exports = router;
 //STILL NEED TO FIGURE OUT SOME SESSION AND AUTH STUFFF
@@ -27,6 +28,31 @@ router.get('/',
       .catch(next)
   });
 
+router.get('/cart',
+    (req, res, next) => {
+      console.log("WHAT IS THIS", req.session.passport)
+      Order.findAll({where: {
+        userId: req.session.passport.user,
+        status: "completed"
+      }}
+      )
+      .then(orders => res.json(orders))
+      .catch(next)
+    });
+
+router.get('/orders',
+    (req, res, next) => {
+      if (req.session.passport.user) {
+      Order.findAll({where: {
+        userId: req.session.passport.user,
+      }}
+      )
+      .then(orders => res.json(orders))
+      .catch(next)
+      }
+    });
+
+
 router.get('/:userId',
   (req, res, next) => {
     res.json(req.user)
@@ -51,21 +77,24 @@ router.delete('/:userId',
     req.user.destroy()
     .then(() => res.status(204).end())
     .catch(next)
-})
-
-router.get('/orders',
-  //logged in req
-  (req, res, next) => {
-    //need user from req.session
-    Order.findAll({
-        where: {
-          userId: '', //req.session.user.id,
-          status: 'completed' //tbd
-        }
-      })
-      .then(orderHistory => res.json(orderHistory))
-  })
+});
 
 
-// router.get('/orders/:id')
+
+// router.get('/cart',
+//   //logged in req
+//   (req, res, next) => {
+//     // const user = req.user || req.session.user;
+//     Order.findAll({
+//         where: {
+//           // userId: user.id, //req.session.user.id,
+//           status: 'completed' //tbd
+//         }
+//       })
+//       .then(order => res.json(order))
+//       .catchn(next)
+//   })
+
+
+// // router.get('/orders/:id')
 
