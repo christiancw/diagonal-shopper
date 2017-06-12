@@ -56,13 +56,13 @@ const onHomeEnter = () => {
       store.dispatch(getProducts(foundProducts))
     })
     .catch(console.error)
-}
+};
 
-const onCartEnter = () => {
-  localStore.each(function(value, key) {
-	console.log(key, '==', value)
-})
-}
+// const onCartEnter = () => {
+//   localStore.each(function(value, key) {
+// 	console.log(key, '==', value);
+// });
+// };
 
 // const localCartToDbOrder = () => {
 
@@ -92,7 +92,7 @@ ReactDOM.render(
           </Route>
           <Route path="products" component={Products} />
           <Route path="products/:productId" component={Product} />
-          <Route path="cart" component={Cart} onEnter={onCartEnter} />
+          <Route path="cart" component={Cart} />
         </Route>
       </Router>
     </Provider>
