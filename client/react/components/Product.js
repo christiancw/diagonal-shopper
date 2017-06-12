@@ -9,7 +9,6 @@ import FlatButton from 'material-ui/FlatButton';
 export const Product = ({ selectedProduct }) => {
   function addToCart() {
   // function addToCart(quantity) {
-  if(!this.props.user) {
     const storeKey = String(selectedProduct.id);
     const retrieved = localStore.get(storeKey);
     if (!retrieved) {
@@ -21,18 +20,18 @@ export const Product = ({ selectedProduct }) => {
       localStore.set(storeKey, {quantity: newQuantity, selectedProduct});
       // console.alert(`You already have ${retrieved.quantity} of this item in your cart. Edit your cart if you didn't mean to add ${quantity} more!`);
     }
-  } 
+
   }
 
   return (
     <div>
       <Card>
           <CardMedia
-            overlay={<CardTitle title={selectedProduct.name} subtitle={`in ${selectedProduct.department}`} />}>
-              <img src={selectedProduct.imageURL} />
+            overlay={<CardTitle title={selectedProduct && selectedProduct.name} subtitle={`in ${selectedProduct && selectedProduct.department}`} />}>
+              <img src={selectedProduct && selectedProduct.imageURL} />
           </CardMedia>
           <CardText>
-            {selectedProduct.description}
+            {selectedProduct && selectedProduct.description}
           </CardText>
           <CardActions>
             <FlatButton label="Add To Cart" onClick={() => addToCart()} />
@@ -55,7 +54,6 @@ export const Product = ({ selectedProduct }) => {
 };*/
 
 const mapState = state => {
-  console.log(state);
   return {
     selectedProduct: state.products.selectedProduct,
     user: state.user.id

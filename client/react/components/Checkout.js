@@ -44,14 +44,6 @@ class Checkout extends React.Component {
         console.log("MAI STATE", this.state)
         return (
                 <div>
-                    {
-                        user && user.id 
-                        ?
-                        just render normally
-                        :
-                        render signup and unclickable checkout
-                            render normally but with a clickable checkout
-                    }
                     <h2>Order Details</h2>
                     <div>
                         <table className="table">
