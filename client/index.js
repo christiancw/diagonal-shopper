@@ -16,11 +16,13 @@ import Checkout from './react/components/Checkout';
 import { me } from './reducer/user';
 import axios from 'axios';
 import { getProducts } from './reducer/products';
+import { getCart, getOrders } from './reducer/order'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {darkBlack} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import localStore from 'store';
+var Promise = require('bluebird')
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
@@ -51,13 +53,32 @@ const requireLogin = (nextRouterState, replace, next) =>
 const onHomeEnter = () => {
   axios.get('/api/products')
     .then(res => {
-      return res.data
+      return res.data;
     })
     .then(foundProducts => {
       store.dispatch(getProducts(foundProducts))
     })
     .catch(console.error)
 };
+
+const onCheckoutEnter = () => {
+  const foundCart = axios.get('/api/users/cart')
+    .then(function(res) {
+      return res.data
+    })
+  const foundOrders = axios.get('/api/users/orders')
+    .then(function(res) {
+      return res.data
+  })
+  return Promise.all([foundCart, foundOrders])
+    .spread(function(cart, orders){
+      store.dispatch(getCart(cart))
+      store.dispatch(getOrders(orders))
+    })
+    .catch(console.error)
+}
+
+
 
 // const onCartEnter = () => {
 //   localStore.each(function(value, key) {
@@ -93,8 +114,8 @@ ReactDOM.render(
           </Route>
           <Route path="products" component={Products} />
           <Route path="products/:productId" component={Product} />
-          <Route path="cart" component={Cart} />
-          <Route path="/checkout" component={Checkout} />
+          <Route path="cart" component={Cart} onEnter= {onCheckoutEnter} />
+          <Route path="checkout" component={Checkout} onEnter= {onCheckoutEnter} />
         </Route>
       </Router>
     </Provider>

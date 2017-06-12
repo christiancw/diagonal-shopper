@@ -4,14 +4,18 @@ import {browserHistory} from 'react-router';
 /*---------------------ACTIONS---------------------*/
 
 const GET_ORDERS = 'GET_ORDERS';
+const GET_CART = 'GET_CART';
 const SELECT_ORDER = 'SELECT_ORDER';
-const CREATE_ORDER = 'CREATE_ORDER';
+const ADD_ITEM = 'ADD_ITEM';
+const REMOVE_ITEM = 'REMOVE_ITEM';
+const CHECKOUT_ORDER = 'CHECKOUT_ORDER';
 
 /*---------------------STATE---------------------*/
 
 const ordersInitialState = ({
     allOrders: [],
-    selectedOrder: {}
+    cart: [],
+    // TO DO: selectedOrder: {}
 });
 
 /*---------------------ACTION CREATORS---------------------*/
@@ -21,32 +25,48 @@ export const getOrders = orders => ({
     orders
 });
 
-export const create = order => ({
-    type: CREATE_ORDER,
+export const getCart = order => ({
+    type: GET_CART,
     order
 });
 
-export const select = order => ({type: SELECT_ORDER, order});
+export const add = order => ({
+    type: ADD_ITEM,
+    order
+});
+
+export const remove = order => ({
+    type: REMOVE_ITEM,
+    order
+});
+
+export const checkout = order => ({
+    type: CHECKOUT_ORDER,
+    order
+});
+
+// TO DO: export const select = order => ({type: SELECT_ORDER, order});
 
 
 /*---------------------DISPATCHERS---------------------*/
 
 export const createOrder = order => dispatch => {
-    axios.post('/api/orders', order)
-        .then(res => dispatch(create(res.data)));
+    if (state.user.id === null) {
+        //function to convert localstorage to orderitems
+        axios.post('.api')
+    }
+    axios.put('/api/orders', order)
+        .then(res => dispatch(checkout(res.data)));
         browserHistory.push('/');
 };
 
-export const selectOrder = orderId => dispatch => {
-    axios.get(`/api/orders/${orderId}`)
-        .then(res => dispatch(select(res.data)));
-        browserHistory.push('/'); // should redirect to ORDER page
-};
-// export const me = () =>
-//     dispatch =>
-//     axios.get('/auth/me')
-//     .then(res =>
-//         dispatch(getUser(res.data || defaultUser)));
+// export const selectOrder = orderId => dispatch => {
+//     axios.get(`/api/orders/${orderId}`)
+//         .then(res => dispatch(select(res.data)));
+//         browserHistory.push('/'); // should redirect to ORDER page
+// };
+
+
 
 
 /*---------------------REDUCERS---------------------*/
@@ -57,7 +77,11 @@ export default function (state = ordersInitialState, action) {
             return Object.assign({}, state, {
                 allOrders: action.orders
             });
-        case CREATE_ORDER:
+        case GET_CART: 
+            return Object.assign({}, state, {
+                cart: action.order
+            });
+        case CHECKOUT_ORDER:
             return Object.assign({}, state, {
                 allOrders: action.order
             });
@@ -65,18 +89,8 @@ export default function (state = ordersInitialState, action) {
             return Object.assign({}, state, {
                 selectedOrder: action.order
             });
+    
         default:
             return state;
     }
 }
-
-// export default function (state = ORDERSInitialState, action) {
-//     console.log(state)
-//     switch (action.type) {
-//         case GET_ORDERS:
-//             return Object.assign({}, state, { allORDERS: Object.assign() })
-//             });
-//         default:
-//             return state;
-//     }
-// }
