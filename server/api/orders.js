@@ -50,7 +50,7 @@ router.post('/cart', (req, res, next) => {
 
       return Promise.all(identifiedOrderItems);
     })
-    .then(res.json.bind(res))
+    .then(() => res.sendStatus(201))
     .catch(next);
 });
 

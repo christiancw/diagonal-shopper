@@ -58,7 +58,6 @@ function localCartToDb (email, method) {
   localStore.each((productQuantityPair, productID) => {
     localCart[productID] = productQuantityPair;
   });
-  // localCart = { '1': [3, productObj], }
 
   // does not interact with state (yet?)
   // post all order items
@@ -66,7 +65,7 @@ function localCartToDb (email, method) {
   // associate user
   console.log('form name method', method);
   if (method === 'signup') {
-    return axios.post('/api/orders/cart', { status: 'completed', email, localCart })
+    return axios.post('/api/orders/cart', { status: 'created', email, localCart })
       .then(console.log.bind(console))
       .catch(console.error);
   }
