@@ -8,11 +8,20 @@ import store from './store';
 // import { Login, Signup, UserHome } from './react/components';
 import { Main } from './react/components/Main';
 import { Login, Signup } from './react/components/Auth';
+<<<<<<< HEAD
+import { UserHome } from './react/components/UserHome';
+import { Products } from './react/components/Products';
+import { Product } from './react/components/Product';
+import { Reviews } from './react/components/Reviews';
+import { ReviewsContainer } from './react/containers/ReviewsContainer';
+import { Cart } from './react/components/Cart';
+=======
 import UserHome from './react/components/UserHome';
 import Products from './react/components/Products';
 import Product from './react/components/Product';
 import Cart from './react/components/Cart';
 import Checkout from './react/components/Checkout';
+>>>>>>> b725d270c5bc95b981dba4ec9bc986dd3e3a5744
 import { me } from './reducer/user';
 import axios from 'axios';
 import { getProducts } from './reducer/products';
@@ -114,8 +123,13 @@ ReactDOM.render(
           </Route>
           <Route path="products" component={Products} />
           <Route path="products/:productId" component={Product} />
+<<<<<<< HEAD
+          <Route path="cart" component={Cart} />
+          <Route path="reviews" component={Reviews} />
+=======
           <Route path="cart" component={Cart} onEnter= {onCheckoutEnter} />
           <Route path="checkout" component={Checkout} onEnter= {onCheckoutEnter} />
+>>>>>>> b725d270c5bc95b981dba4ec9bc986dd3e3a5744
         </Route>
       </Router>
     </Provider>
