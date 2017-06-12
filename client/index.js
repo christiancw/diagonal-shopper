@@ -11,6 +11,8 @@ import { Login, Signup } from './react/components/Auth';
 import UserHome from './react/components/UserHome';
 import Products from './react/components/Products';
 import Product from './react/components/Product';
+import { Reviews } from './react/components/Reviews';
+import { ReviewsContainer } from './react/containers/ReviewsContainer';
 import Cart from './react/components/Cart';
 import Checkout from './react/components/Checkout';
 import { me } from './reducer/user';
