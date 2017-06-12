@@ -5,7 +5,7 @@ chai.use(chaiEnzyme());
 import {shallow} from 'enzyme';
 
 import { Product } from '../../client/react/components/Product';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { CardMedia, CardText, CardTitle } from 'material-ui/Card';
 describe('Product component', () => {
   const testProduct = {
     name: 'Nimbus 2000',
@@ -42,6 +42,8 @@ describe('Product component', () => {
 
     it('shows the title as a CardTitle', () => {
       expect(cardTitle.props.title).to.equal('Nimbus 2000');
+      // expect(productComponent.find(CardTitle).length).to.equal(0); => true
+      // check Product.js: apparently CardTitle can't be found because it's nested in an overlay prop
     });
 
     it('notes the department the product belongs to', () => {
