@@ -40,9 +40,9 @@ export const createProduct = product => dispatch => {
 export const selectProduct = productId => dispatch => {
     axios.get(`/api/products/${productId}`)
         .then(res =>{
-          dispatch(select(res.data));
-           //browserHistory.push('/'); // should redirect to product page
-        })
+        dispatch(select(res.data));
+        //browserHistory.push('/'); // should redirect to product page
+        });
 
 };
 // export const me = () =>
