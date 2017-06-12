@@ -16,6 +16,13 @@ router.param('reviewId', function(req, res, next, id){
 	.catch(next);
 });
 
+router.get('/', function(req, res, next) {
+	Review.findAll()
+	.then(function(foundReviews) {
+		res.json(foundReviews);
+	});
+});
+
 router.get('/:reviewId', function(req, res, next){
 	res.json(req.review);
 });

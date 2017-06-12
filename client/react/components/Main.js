@@ -6,12 +6,14 @@ import Products from './Products'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from './AppBar.js';
 import Cart from './Cart';
+import Reviews from './Reviews'; //just for development to see fetched reviews
+import ReviewsContainer from '../containers/ReviewsContainer';
 import NavbarContainer from '../containers/NavbarContainer';
 
 // Component //
 
 export const Main = props => {
-  console.log("TRYING TO RENDER MAIN")
+  console.log("Props===>", props);
 
   const { children } = props;
 
@@ -19,7 +21,22 @@ export const Main = props => {
 
     <div>
       <AppBar />
+    {/*</MuiThemeProvider>*/}
+        {/*{ loggedIn ?
+            <nav>
+              <Link to="/home">Home</Link>
+              <a href="#" onClick={handleClick}>Logout</a>
+            </nav> :
+            <nav>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+            </nav>
+        <div>
+        </div>
+        }*/}
+        <hr />
       { children }
+
       <Products />
     </div>
 
@@ -29,4 +46,3 @@ export const Main = props => {
 Main.propTypes = {
   children: PropTypes.object,
 };
-
