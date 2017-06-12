@@ -34,6 +34,7 @@ class Checkout extends React.Component {
 
     handleSubmit() {
 
+        console.log("checking handle submit")
         this.props.checkout(this.props.cart);
         browserHistory.push('/');
     }
@@ -53,9 +54,9 @@ class Checkout extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.props.cart && this.props.cart.map((product) =>
+                                {this.props.cart && this.props.cart.orderitems.map((product) =>
                                     <tr key={product.productId}>
-                                        <td>{product.id}</td>
+                                        <td>{product.productId}</td>
                                     </tr>)
                                 }
                             </tbody>

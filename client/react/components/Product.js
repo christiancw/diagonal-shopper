@@ -2,13 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import localStore from 'store';
+import { addToOrder } from '../../reducer/products';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
 // this export is FOR UNIT TESTING. DO NOT import this into react-router index
-export const Product = ({ selectedProduct }) => {
+export const Product = ({ selectedProduct, user, addToOrderFunc }) => {
   function addToCart() {
   // function addToCart(quantity) {
+  console.log(user)
+  if (!user) {
     const storeKey = String(selectedProduct.id);
     const retrieved = localStore.get(storeKey);
     if (!retrieved) {
@@ -20,7 +23,10 @@ export const Product = ({ selectedProduct }) => {
       localStore.set(storeKey, {quantity: newQuantity, selectedProduct});
       // console.alert(`You already have ${retrieved.quantity} of this item in your cart. Edit your cart if you didn't mean to add ${quantity} more!`);
     }
-
+  } 
+  // else {
+  //   addToOrderFunc();
+  // }
   }
 
   return (
@@ -60,4 +66,12 @@ const mapState = state => {
   };
 };
 
-export default connect(mapState)(Product);
+const mapDispatch = (dispatch) => {
+  return {
+    addToOrderFunc(item) {
+      dispatch(addToOrder(item))
+    }
+  };
+};
+
+export default connect(mapState, mapDispatch)(Product);
