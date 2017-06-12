@@ -4,12 +4,25 @@ import { Link } from 'react-router';
 import localStore from 'store';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import { getReviews, loadReviews } from '../../reducer/reviews';
+import { selectProduct } from '../../reducer/products';
+import ReviewsContainer from '../containers/ReviewsContainer';
 
 // this export is FOR UNIT TESTING. DO NOT import this into react-router index
+export class Product extends React.Component {
+  // console.log('PROPS  IN PRoduct', showReviews);
+  constructor(){
+    super()
+    this.state = {
+      showReviews: false,
+      open: false
+    }
+    this.handleClick = this.handleClick.bind(this);
+    this.addToCart = this.addToCart.bind(this);
+    this.handleReviewClick = this.handleReviewClick.bind(this);
+  }
 
-export const Product = ({ selectedProduct }) => {
-  function addToCart() {
-  // function addToCart(quantity) {
+   addToCart() {
     const storeKey = String(selectedProduct.id);
     const retrieved = localStore.get(storeKey);
     if (!retrieved) {
@@ -23,6 +36,21 @@ export const Product = ({ selectedProduct }) => {
     }
   }
 
+  handleClick () {
+    this.setState({ open: true });
+  }
+
+  handleReviewClick () {
+    this.setState({ showReviews: !this.state.showReviews });
+  }
+// let visibleReviews = false;
+//
+//   function toggleRevs() {
+//     // visibleReview !visibleReviews});
+//     console.log(visibleReviews)
+//   }
+render (props) {
+  const selectedProduct = this.props.selectedProduct;
   return (
     <div>
       <Card>
@@ -34,13 +62,19 @@ export const Product = ({ selectedProduct }) => {
             { selectedProduct.description }
           </CardText>
           <CardActions>
-            <FlatButton label="Add To Cart" onClick={ () => addToCart() } />
-            <FlatButton label="Reviews" />
+            <FlatButton label="Add To Cart" onClick={() => this.addToCart()} />
+            <FlatButton label="Reviews" onClick={() => this.handleReviewClick()} />
           </CardActions>
       </Card>
+      <div>
+      {this.state.showReviews ?
+        <ReviewsContainer /> :
+        null
+      }
+      </div>
     </div>
-  )
-};
+  )}
+}
   /*return (
     <div>
       <h2>{selectedProduct.name}</h2>
@@ -60,4 +94,12 @@ const mapState = state => {
   };
 };
 
-export default connect(mapState)(Product);
+const mapDispatch = function (dispatch) {
+  return {
+    setProduct (product) {
+      dispatch(selectProduct(product.id));
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Product);
