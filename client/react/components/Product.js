@@ -5,14 +5,18 @@ import localStore from 'store';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
+// this export is FOR UNIT TESTING. DO NOT import this into react-router index
 export const Product = ({ selectedProduct }) => {
-  function addToCart(quantity) {
+  function addToCart() {
+  // function addToCart(quantity) {
     const storeKey = String(selectedProduct.id);
     const retrieved = localStore.get(storeKey);
     if (!retrieved) {
-      localStore.set(storeKey, {quantity, selectedProduct});
+      localStore.set(storeKey, {quantity: 1, selectedProduct});
+      //localStore.set(storeKey, {quantity, selectedProduct});
     } else {
-      const newQuantity = retrieved.quantity + quantity;
+      const newQuantity = retrieved.quantity + 1;
+      // const newQuantity = retrieved.quantity + quantity;
       localStore.set(storeKey, {quantity: newQuantity, selectedProduct});
       // console.alert(`You already have ${retrieved.quantity} of this item in your cart. Edit your cart if you didn't mean to add ${quantity} more!`);
     }

@@ -8,10 +8,10 @@ import store from './store';
 // import { Login, Signup, UserHome } from './react/components';
 import { Main } from './react/components/Main';
 import { Login, Signup } from './react/components/Auth';
-import { UserHome } from './react/components/UserHome';
-import { Products } from './react/components/Products';
+import UserHome from './react/components/UserHome';
+import Products from './react/components/Products';
 import Product from './react/components/Product';
-import { Cart } from './react/components/Cart';
+import Cart from './react/components/Cart';
 import { me } from './reducer/user';
 import axios from 'axios';
 import { getProducts } from './reducer/products';
@@ -19,6 +19,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {darkBlack} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import localStore from 'store';
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
@@ -55,7 +56,13 @@ const onHomeEnter = () => {
       store.dispatch(getProducts(foundProducts))
     })
     .catch(console.error)
-}
+};
+
+// const onCartEnter = () => {
+//   localStore.each(function(value, key) {
+// 	console.log(key, '==', value);
+// });
+// };
 
 // const localCartToDbOrder = () => {
 
