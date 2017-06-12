@@ -23,7 +23,6 @@ export class Product extends React.Component {
   }
 
    addToCart() {
-  // function addToCart(quantity) {
     const storeKey = String(selectedProduct.id);
     const retrieved = localStore.get(storeKey);
     if (!retrieved) {
@@ -56,18 +55,15 @@ render (props) {
     <div>
       <Card>
           <CardMedia
-            overlay={<CardTitle title={selectedProduct.name} subtitle={`in ${selectedProduct.department}`} />}>
-              <img src={selectedProduct.imageURL} />
+            overlay={<CardTitle title={ selectedProduct.name } subtitle={ `in ${selectedProduct.department}` } />}>
+              <img src={ selectedProduct.imageURL } />
           </CardMedia>
           <CardText>
-            {selectedProduct.description}
+            { selectedProduct.description }
           </CardText>
           <CardActions>
             <FlatButton label="Add To Cart" onClick={() => this.addToCart()} />
             <FlatButton label="Reviews" onClick={() => this.handleReviewClick()} />
-            {
-
-            }
           </CardActions>
       </Card>
       <div>

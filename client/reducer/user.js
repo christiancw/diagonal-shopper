@@ -16,12 +16,13 @@ export const me = () =>
       .then(res =>
         dispatch(getUser(res.data || defaultUser)));
 
-export const auth = (email, password, method) =>
+export const auth = (email, password, method, noRedirect) =>
   dispatch =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
         dispatch(getUser(res.data));
-        browserHistory.push('/home');
+        if (noRedirect) { return; }
+        else { browserHistory.push('/home'); }
       })
       .catch(error =>
         dispatch(getUser({ error })))
