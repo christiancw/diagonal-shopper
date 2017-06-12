@@ -7,6 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { getReviews, loadReviews } from '../../reducer/reviews';
 import { selectProduct } from '../../reducer/products';
 import ReviewsContainer from '../containers/ReviewsContainer';
+import Snackbar from 'material-ui/Snackbar';
 
 // this export is FOR UNIT TESTING. DO NOT import this into react-router index
 export class Product extends React.Component {
@@ -22,12 +23,14 @@ export class Product extends React.Component {
     this.handleReviewClick = this.handleReviewClick.bind(this);
   }
 
-   addToCart() {
+
+  addToCart() {
+    const selectedProduct = this.props.selectedProduct;
     const storeKey = String(selectedProduct.id);
     const retrieved = localStore.get(storeKey);
     if (!retrieved) {
       localStore.set(storeKey, {quantity: 1, selectedProduct});
-      //localStore.set(storeKey, {quantity, selectedProduct});
+      //localStore.set(storeKey, {quantity, this.props.selectedProduct});
     } else {
       const newQuantity = retrieved.quantity + 1;
       // const newQuantity = retrieved.quantity + quantity;
@@ -62,7 +65,7 @@ render (props) {
             { selectedProduct.description }
           </CardText>
           <CardActions>
-            <FlatButton label="Add To Cart" onClick={() => this.addToCart()} />
+            <FlatButton label="Add To Cart" onClick={() => {this.addToCart(); this.handleClick()}} />
             <FlatButton label="Reviews" onClick={() => this.handleReviewClick()} />
           </CardActions>
       </Card>
@@ -72,6 +75,11 @@ render (props) {
         null
       }
       </div>
+      <Snackbar
+          open={this.state.open}
+          message="Item added to cart"
+          autoHideDuration={4000}
+        />
     </div>
   )}
 }
@@ -99,7 +107,7 @@ const mapDispatch = function (dispatch) {
     setProduct (product) {
       dispatch(selectProduct(product.id));
     }
-  }
-}
+  };
+};
 
 export default connect(mapState, mapDispatch)(Product);
