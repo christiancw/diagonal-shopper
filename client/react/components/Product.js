@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 export const Product = ({ selectedProduct }) => {
   function addToCart() {
   // function addToCart(quantity) {
+  if(!this.props.user) {
     const storeKey = String(selectedProduct.id);
     const retrieved = localStore.get(storeKey);
     if (!retrieved) {
@@ -20,6 +21,7 @@ export const Product = ({ selectedProduct }) => {
       localStore.set(storeKey, {quantity: newQuantity, selectedProduct});
       // console.alert(`You already have ${retrieved.quantity} of this item in your cart. Edit your cart if you didn't mean to add ${quantity} more!`);
     }
+  } 
   }
 
   return (
@@ -55,7 +57,8 @@ export const Product = ({ selectedProduct }) => {
 const mapState = state => {
   console.log(state);
   return {
-    selectedProduct: state.products.selectedProduct
+    selectedProduct: state.products.selectedProduct,
+    user: state.user.id
   };
 };
 

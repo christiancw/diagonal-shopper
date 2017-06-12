@@ -33,6 +33,7 @@ class Checkout extends React.Component {
     }
 
     handleSubmit() {
+
         this.props.checkout(this.props.cart);
         browserHistory.push('/');
     }
@@ -43,6 +44,14 @@ class Checkout extends React.Component {
         console.log("MAI STATE", this.state)
         return (
                 <div>
+                    {
+                        user && user.id 
+                        ?
+                        just render normally
+                        :
+                        render signup and unclickable checkout
+                            render normally but with a clickable checkout
+                    }
                     <h2>Order Details</h2>
                     <div>
                         <table className="table">
@@ -120,11 +129,12 @@ class Checkout extends React.Component {
 
     const mapStateToProps = (state) => ({ 
         cart: state.orders.cart,
+        user: state.user
     });
 
     const mapDispatchToProps = (dispatch) => {
     return {
-        checkout(cart, email, signupOrLogin) {
+        checkout(order) {
             // dispatch(createOrder(cart))
             
             dispatch(createOrder(order))
