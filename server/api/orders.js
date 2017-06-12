@@ -38,20 +38,19 @@ router.post('/', (req, res, next) => {
 router.post('/cart', (req, res, next) => {
   const { status, email, localCart } = req.body;
 
-  User.findOrCreate({ where: { email }})
-    .then(user => Order.create({ status, userId: user.id }))
-    .then(createdOrder => {
+  User.findOne({ where: { email }})
+    .then(user => Order.create({ status }).then(createdOrder => createdOrder.setUser(user)))
+    .then(userAssociatedOrder => {
       const identifiedOrderItems = Object.keys(localCart).map(itemKey => {
-        return {
-          quantity: localCart[itemKey].quantity,
-          productId: localCart[itemKey].product.id,
-          orderId: createdOrder.id
-        };
-      });
+        const item = localCart[itemKey];
+        return OrderItem.create({ quantity: item.quantity })
+          .then(createdItem => createdItem.setOrder(userAssociatedOrder))
+          .then(orderAssociatedItem => orderAssociatedItem.setProduct(item.selectedProduct.id));
+        });
 
-      return OrderItem.bulkCreate(identifiedOrderItems);
+      return Promise.all(identifiedOrderItems);
     })
-    .then(bulkCreated => res.status(201).json(bulkCreated))
+    .then(res.json.bind(res))
     .catch(next);
 });
 
