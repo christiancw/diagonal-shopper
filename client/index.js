@@ -118,7 +118,6 @@ ReactDOM.render(
           <Route path="products/:productId" component={Product} />
           <Route path="cart" component={Cart} onEnter= {onCheckoutEnter} />
           <Route path="checkout" component={Checkout} onEnter= {onCheckoutEnter} />
->>>>>>> b725d270c5bc95b981dba4ec9bc986dd3e3a5744
         </Route>
       </Router>
     </Provider>
