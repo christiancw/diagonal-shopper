@@ -4,15 +4,13 @@
   "description": "Some boilerplate code to get you started - get shakin'!",
   "main": "index.js",
   "scripts": {
-    "start": "node server",
-    "start-dev": "webpack -w & NODE_ENV=development nodemon server",
+    "start": "webpack -w & nodemon server",
     "start-server": "nodemon server",
     "build-client": "webpack",
     "test": "DATABASE_URL='postgres://localhost:5432/diagonal-shopper-test' mocha -w ./tests/**/*.spec.js --compilers js:babel-register",
     "react-tests": "mocha ./tests/react-tests --watch --compilers js:babel-register",
     "model-tests": "mocha ./tests/model-tests --watch --compilers js:babel-register",
-    "route-tests": "mocha ./tests/route-tests --watch --compilers js:babel-register",
-    "seed": "node seed.js"
+    "route-tests": "mocha ./tests/route-tests --watch --compilers js:babel-register"
   },
   "author": "",
   "license": "ISC",
