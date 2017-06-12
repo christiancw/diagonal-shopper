@@ -19,6 +19,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {darkBlack} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import localStore from 'store';
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
@@ -55,7 +56,13 @@ const onHomeEnter = () => {
       store.dispatch(getProducts(foundProducts))
     })
     .catch(console.error)
-}
+};
+
+// const onCartEnter = () => {
+//   localStore.each(function(value, key) {
+// 	console.log(key, '==', value);
+// });
+// };
 
 // const localCartToDbOrder = () => {
 
