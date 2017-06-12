@@ -6,7 +6,7 @@ export default class Reviews extends React.Component {
   }
   render () {
     const reviews = this.props.allReviews;
-    // const selectedProduct = this.props.selectedProduct;
+    const selectedProduct = this.props.selectedProduct;
     console.log('reviews', this);
     return (
       <div>
