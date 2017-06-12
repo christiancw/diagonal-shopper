@@ -134,9 +134,9 @@ class Checkout extends React.Component {
                                         <div>
                                             {this.state.loginShowing
                                             ?
-                                                <Login />
+                                                <Login noRedirect={true} />
                                             :
-                                                <Signup />
+                                                <Signup noRedirect={true} />
                                             }
                                             <form className="form-horizontal" onSubmit={this.handleSubmit}>
                                                 <fieldset>

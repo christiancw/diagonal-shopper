@@ -32,12 +32,11 @@ export default class Cart extends React.Component {
           <GridTile
             linkButton={ true }
             containerElement={<Link to={`/products/${product.selectedProduct.id}`} />}
-            key={product.selectedProduct.id + product.quantity}
-            title={product.selectedProduct.name}
+            key={product.selectedProduct.id}
+            title={product.selectedProduct.name + " (Quantity: " + product.quantity + ")"}
             subtitle={<span>{product.selectedProduct.description}</span>}
             actionIcon={<IconButton></IconButton>}>
             <img src={product.selectedProduct.imageURL} />
-            <h4>{product.quantity}</h4>
           </GridTile>
         ))}
       </div>

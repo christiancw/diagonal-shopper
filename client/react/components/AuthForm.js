@@ -5,15 +5,15 @@ import FlatButton from 'material-ui/FlatButton';
 
 const AuthForm = props => {
 
-  const { user, name, displayName, handleSubmit, error } = props;
-
+  const { user, name, displayName, handleSubmit, error, noRedirect } = props;
+  // console.log(noRedirect);
   return (
     user && user.id
     ?
     null
     :
     (<div>
-      <form action="/" name={ name } onSubmit={ handleSubmit }>
+      <form action="/" name={ name } onSubmit={ (e) => handleSubmit(e, noRedirect) }>
         <TextField
           name="email"
           floatingLabelText="E-mail"
