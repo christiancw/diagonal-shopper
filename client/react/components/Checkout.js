@@ -35,6 +35,8 @@ class Checkout extends React.Component {
     }
 
     handleSubmit() {
+
+        console.log("checking handle submit")
         this.props.checkout(this.props.cart);
         browserHistory.push('/');
     }
@@ -42,34 +44,7 @@ class Checkout extends React.Component {
 
     render() {
         console.log("MAI PROPS", this.props)
-        console.log("MAI STATE", this.state)
-        const orderDetails = (<form className="form-horizontal" onSubmit={this.handleSubmit}>
-                        <fieldset>
-                            <legend>Order Details</legend>
-                            <div className="form-group">
-                                <label className="col-xs-2 control-label">Address</label>
-                                <div className="col-xs-10">
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        name="address"
-                                        onChange={this.handleChange}
-                                        value={this.state.address.value}
-                                    />
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <div className="col-xs-10 col-xs-offset-2">
-                                        <button
-                                            type="submit"
-                                            className="btn btn-success"
-                                        >
-                                            Submit Order
-                                        </button>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>)
+        console.log("MAI STATE", this.state);
         return (
                 <div>
                     { this.props.user && this.props.user.id
@@ -198,7 +173,7 @@ class Checkout extends React.Component {
 
     const mapDispatchToProps = (dispatch) => {
     return {
-        checkout(cart, email, signupOrLogin) {
+        checkout(order) {
             // dispatch(createOrder(cart))
 
             dispatch(createOrder(order))

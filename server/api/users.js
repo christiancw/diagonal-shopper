@@ -31,12 +31,14 @@ router.get('/',
 router.get('/cart',
     (req, res, next) => {
       console.log("WHAT IS THIS", req.session.passport)
-      Order.findAll({where: {
+      Order.findOne({where: {
         userId: req.session.passport.user,
-        status: "completed"
-      }}
-      )
-      .then(orders => res.json(orders))
+        status: "created"
+      },
+      include: [ {model: OrderItem} ]
+    })
+      .then(order => 
+      res.json(order))
       .catch(next)
     });
 
