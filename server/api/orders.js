@@ -3,6 +3,7 @@ const Order = require('../db').model('order');
 const OrderItem = require('../db').model('orderitem');
 const User = require('../db').model('user');
 const HttpError = require('./utils/HttpError');
+const localStore = require('store');
 module.exports = router;
 
 // Should be able to get a order by ID
@@ -92,6 +93,39 @@ router.put('/cart', (req, res, next) => {
     .then(() => res.sendStatus(201))
     .catch(next);
 });
+
+router.put('/cart/boop', (req, res, next) => {
+  console.log("KKKKKKKKK", req.body)
+  const product = req.body;
+  User.findOne({ where: { id: req.session.passport.user }})
+    .then(user => {
+      return Order.findOrCreate({
+        where: { userId: user.id, status: "created" },
+        include: [{model: OrderItem}]
+      })
+    .then(([order, created]) => {
+      console.log("am I here?")
+      if (created) {
+         console.log("CREATED", order, product)
+        return createAndAssociateItem(1, order, product.id)
+    } else {
+         console.log("FOUND", order, product)
+        const foundItem = order.orderitems.find(item => item.productId === product.id)
+        if (foundItem) {
+          return foundItem.update({
+            quantity: foundItem.quantity + 1
+          });
+        } else {
+          return createAndAssociateItem(1, order, product.id)
+        }
+    }
+    })
+    .then(updatedItem => res.json(updatedItem))
+    .catch(next);
+});
+})
+    
+  
 
 // returns newly made order items
 function transferLocalItemsToDb (userAssociatedOrder, localCart) {

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import localStore from 'store';
-import { addToOrder } from '../../reducer/products';
+import { addToOrder } from '../../reducer/order';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { getReviews, loadReviews } from '../../reducer/reviews';
@@ -39,10 +39,24 @@ export class Product extends React.Component {
             localStore.set(storeKey, {quantity: newQuantity, selectedProduct});
             // console.alert(`You already have ${retrieved.quantity} of this item in your cart. Edit your cart if you didn't mean to add ${quantity} more!`);
           }
+      } 
+  else {
+    this.props.addToOrderFunc(selectedProduct);
+  }
+}
+  removeFromCart() {
+    const selectedProduct = this.props.selectedProduct;
+    if (!this.props.user) {
+        const storeKey = String(selectedProduct.id);
+        const retrieved = localStore.get(storeKey);
+        if (retrieved && retrieved.quantity > 1) {
+          const newQuantity = retrieved.quantity - 1;
+          localStore.set(storeKey, {quantity: newQuantity, selectedProduct});
+        }
+        if (retrieved.quantity === 1) {
+          localStore.removeItem(storeKey);
+        }
       }
-  // else {
-  //   this.props.addToOrderFunc();
-  // }
   }
 
   handleClick () {
@@ -71,7 +85,8 @@ render (props) {
             { selectedProduct.description }
           </CardText>
           <CardActions>
-            <FlatButton label="Add To Cart" onClick={() => {this.addToCart(); this.handleClick()}} />
+            <FlatButton label="Add To Cart" onClick={() => {this.addToCart(); this.handleClick();}} />
+            <FlatButton label="Remove From Cart" onClick={() => {this.removeFromCart();}} />
             <FlatButton label="Reviews" onClick={() => this.handleReviewClick()} />
             <Link to={`/products/${selectedProduct.id}/leavereview`}>LEAVE REVIEW</Link>/>
           </CardActions>
@@ -112,8 +127,9 @@ const mapState = state => {
 
 const mapDispatch = (dispatch) => {
   return {
-    addToOrderFunc(item) {
-      dispatch(addToOrder(item))
+    addToOrderFunc(product) {
+      console.log("PLZPLZPLZ", product)
+      dispatch(addToOrder(product))
     }
   };
 };
