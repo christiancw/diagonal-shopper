@@ -88,6 +88,7 @@ render (props) {
             <FlatButton label="Add To Cart" onClick={() => {this.addToCart(); this.handleClick();}} />
             <FlatButton label="Remove From Cart" onClick={() => {this.removeFromCart();}} />
             <FlatButton label="Reviews" onClick={() => this.handleReviewClick()} />
+            <Link to={`/products/${selectedProduct.id}/leavereview`}>LEAVE REVIEW</Link>/>
           </CardActions>
       </Card>
       <div>

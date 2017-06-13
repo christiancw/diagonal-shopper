@@ -38,6 +38,7 @@ class Checkout extends React.Component {
 
         console.log("checking handle submit")
         this.props.checkout(this.props.cart);
+        console.log('called Checkout')
         browserHistory.push('/');
     }
 
@@ -175,8 +176,8 @@ class Checkout extends React.Component {
     return {
         checkout(order) {
             // dispatch(createOrder(cart))
-
-            dispatch(createOrder(order))
+            const action = createOrder(order);
+            dispatch(action);
         }
     }
 }
