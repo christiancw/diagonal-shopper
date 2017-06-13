@@ -56,7 +56,12 @@ export const loadReviews = function () {
 export const createReview = review => {
     console.log('TRYING TO CREATE REVIEW', review);
     return (dispatch) => {
-      axios.post('/api/reviews', {rating: review.stars, content: review.content})
+      axios.post('/api/reviews', {
+        rating: review.stars,
+        content: review.content,
+        userId: review.userId,
+        productId: review.productId
+      })
           .then(res => dispatch(create(res.data)));
           browserHistory.push('/');
         };

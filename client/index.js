@@ -119,6 +119,7 @@ ReactDOM.render(
           </Route>
           <Route path="products" component={Products} />
           <Route path="products/:productId" component={Product} />
+          <Route path="products/:productId/leavereview" component={LeaveReviewContainer} />
           <Route path="cart" component={Cart} onEnter= {onCheckoutEnter} />
           <Route path="checkout" component={Checkout} onEnter= {onCheckoutEnter} />
           <Route path="leavereview" component={LeaveReviewContainer} />

@@ -26,6 +26,7 @@ class LeaveReviewContainer extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.selectedProduct = this.props.selectedProduct;
     this.currentUser = this.props.currentUser;
+    this.productId = this.props.params.productId;
   }
 
   handleRateChange (evt) {
@@ -49,7 +50,8 @@ class LeaveReviewContainer extends React.Component {
     console.log('propsonsubmit', this.props);
     const review = {
       userId: this.props.currentUser.id,
-      productId: this.props.selectedProduct.id,
+      productId: Number(this.props.params.productId),
+      // productId: this.props.selectedProduct.id, HARDCODED FOR TESTING
       content: this.state.contentValue,
       stars: this.state.stars
     }
@@ -61,6 +63,7 @@ class LeaveReviewContainer extends React.Component {
     console.log('formcontainer state', props);
     return (
       <LeaveReview
+        selectedProductName={this.props.selectedProduct.name}
         handleSubmit={this.handleSubmit}
         handleRateChange={this.handleRateChange}
         handleContentChange={this.handleContentChange}
