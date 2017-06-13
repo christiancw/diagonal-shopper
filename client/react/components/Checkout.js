@@ -36,6 +36,7 @@ class Checkout extends React.Component {
 
     handleSubmit() {
         this.props.checkout(this.props.cart);
+        console.log('called Checkout')
         browserHistory.push('/');
     }
 
@@ -198,10 +199,10 @@ class Checkout extends React.Component {
 
     const mapDispatchToProps = (dispatch) => {
     return {
-        checkout(cart, email, signupOrLogin) {
+        checkout(order) {
             // dispatch(createOrder(cart))
-
-            dispatch(createOrder(order))
+            const action = createOrder(order);
+            dispatch(action);
         }
     }
 }
