@@ -14,7 +14,7 @@ const CHECKOUT_ORDER = 'CHECKOUT_ORDER';
 
 const ordersInitialState = ({
     allOrders: [],
-    cart: [],
+    cart: {},
     // TO DO: selectedOrder: {}
 });
 
@@ -30,9 +30,9 @@ export const getCart = order => ({
     order
 });
 
-export const add = order => ({
+export const add = item => ({
     type: ADD_ITEM,
-    order
+    item
 });
 
 export const remove = order => ({
@@ -56,8 +56,9 @@ export const createOrder = order => dispatch => {
         browserHistory.push('/');
 };
 
-export const addToOrder = order => dispatch => {
-    axios.post(`/api/orders/cart/${order.id}`, order)
+export const addToOrder = product => dispatch => {
+    console.log("MOOOOOO", product)
+    axios.put('/api/orders/cart/boop', product)
         .then(res => dispatch(add(res.data)));
 };
 
@@ -90,15 +91,23 @@ export default function (state = ordersInitialState, action) {
             });
         case CHECKOUT_ORDER:
             return Object.assign({}, state, {
-            cart: action.order
+                cart: action.order
         });
-        case ADD_ITEM:
-            return Object.assign({}, state, {
-            cart: state.cart.orderItems.concat(action.order)
-        });
+        case ADD_ITEM: {
+            if (action.item.quantity === 1) {
+                return Object.assign({}, state, {
+                    cart: Object.assign({}, state.cart, {orderitems: state.cart.orderitems.concat([action.item])})
+
+                });
+            } else {
+                const keptItems = state.cart.orderitems.filter(item => item.id !== action.item.id) 
+                return Object.assign({}, state, {
+                cart: Object.assign({}, state.cart, {orderitems: keptItems.concat([action.item])}) 
+            })}}
+
         case REMOVE_ITEM:
             return Object.assign({}, state, {
-            cart: state.cart.orderItem.filter(item => item.id !== action.id)
+            cart: state.cart.orderitems.filter(item => item.id !== action.id)
         });
         case SELECT_ORDER:
             return Object.assign({}, state, {

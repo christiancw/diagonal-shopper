@@ -57,3 +57,10 @@ export default class Cart extends React.Component {
     );
   }
 }
+
+const mapState = state => {
+  return {
+    selectedProduct: state.products.selectedProduct,
+    user: state.user.id
+  };
+};

@@ -116,8 +116,8 @@ ReactDOM.render(
             {/* <Route path="home" component={UserHome} onEnter={localCartToDbOrder} /> */}
             <Route path="home" component={UserHome} />
           </Route>
-          <Route path="products" component={Products} />
-          <Route path="products/:productId" component={Product} />
+          <Route path="products" component={Products} onEnter= {onCheckoutEnter}/>
+          <Route path="products/:productId" component={Product} onEnter= {onCheckoutEnter}/>
           <Route path="cart" component={Cart} onEnter= {onCheckoutEnter} />
           <Route path="checkout" component={Checkout} onEnter= {onCheckoutEnter} />
         </Route>

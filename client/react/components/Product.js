@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import localStore from 'store';
-import { addToOrder } from '../../reducer/products';
+import { addToOrder } from '../../reducer/order';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { getReviews, loadReviews } from '../../reducer/reviews';
@@ -40,9 +40,9 @@ export class Product extends React.Component {
             // console.alert(`You already have ${retrieved.quantity} of this item in your cart. Edit your cart if you didn't mean to add ${quantity} more!`);
           }
       } 
-  // else {
-  //   this.props.addToOrderFunc();
-  // }
+  else {
+    this.props.addToOrderFunc(selectedProduct);
+  }
 }
   removeFromCart() {
     const selectedProduct = this.props.selectedProduct;
@@ -126,8 +126,9 @@ const mapState = state => {
 
 const mapDispatch = (dispatch) => {
   return {
-    addToOrderFunc(item) {
-      dispatch(addToOrder(item))
+    addToOrderFunc(product) {
+      console.log("PLZPLZPLZ", product)
+      dispatch(addToOrder(product))
     }
   };
 };

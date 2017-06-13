@@ -66,11 +66,11 @@ function localCartToDb (email, method) {
   // associate user
   if (method === 'signup') {
     return axios.post('/api/orders/cart', { status: 'created', email, localCart })
-      .then(console.log.bind(console))
+      .then(() => localStore.clearAll())
       .catch(console.error);
   } else {
     return axios.put('/api/orders/cart', { status: 'created', email, localCart })
-      .then(console.log.bind(console))
+      .then(() => localStore.clearAll())
       .catch(console.error);
   }
 }
