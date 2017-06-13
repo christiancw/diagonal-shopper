@@ -51,14 +51,21 @@ export const checkout = order => ({
 /*---------------------DISPATCHERS---------------------*/
 
 export const createOrder = order => dispatch => {
-    if (state.user.id === null) {
-        //function to convert localstorage to orderitems
-        axios.post('.api')
-    }
-    axios.put('/api/orders', order)
+    axios.put(`/api/orders/${id}`, order)
         .then(res => dispatch(checkout(res.data)));
         browserHistory.push('/');
 };
+
+export const addToOrder = order => dispatch => {
+    axios.post(`/api/orders/cart/${order.id}`, order)
+        .then(res => dispatch(add(res.data)));
+};
+
+export const removeFromOrder = order => dispatch => {
+    dispatch(remove(order.id))
+    axios.delete(`/api/orders/${order.id}`)
+        .then(() => console.log("did it"))
+}
 
 // export const selectOrder = orderId => dispatch => {
 //     axios.get(`/api/orders/${orderId}`)
@@ -83,8 +90,16 @@ export default function (state = ordersInitialState, action) {
             });
         case CHECKOUT_ORDER:
             return Object.assign({}, state, {
-                allOrders: action.order
-            });
+            cart: action.order
+        });
+        case ADD_ITEM:
+            return Object.assign({}, state, {
+            cart: state.cart.orderItems.concat(action.order)
+        });
+        case REMOVE_ITEM:
+            return Object.assign({}, state, {
+            cart: state.cart.orderItem.filter(item => item.id !== action.id)
+        });
         case SELECT_ORDER:
             return Object.assign({}, state, {
                 selectedOrder: action.order

@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 const AuthForm = props => {
 
   const { user, name, displayName, handleSubmit, error, noRedirect } = props;
-  console.log(noRedirect);
+  // console.log(noRedirect);
   return (
     user && user.id
     ?

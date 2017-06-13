@@ -16,7 +16,7 @@ const hardcodedReviews = [
 ];
 
 const reviewsInitialState = ({
-    allReviews: hardcodedReviews,
+    allReviews: [],
     selectedReview: {}
 })
 

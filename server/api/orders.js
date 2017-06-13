@@ -54,12 +54,16 @@ router.post('/cart', (req, res, next) => {
     .catch(next);
 });
 
+
 router.put('/cart', (req, res, next) => {
   const { status, email, localCart } = req.body;
 
   User.findOne({ where: { email }})
     .then(user => Order.findOrCreate({ where: { userId: user.id, status }}))
-}
+    .then(([user, created]) => res.json({user, created}));
+});
+
+//when logging in your either creatin
 
 router.get('/:orderId', (req, res, next) => {
   res.json(req.order);
