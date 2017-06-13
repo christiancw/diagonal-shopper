@@ -16,6 +16,7 @@ User.hasMany(Order) // user.getOrders(), user.setOrders(), user.addOrder()
 // Product.belongsTo(OrderItems)
 OrderItems.belongsTo(Product) // orderitem.setProduct
 OrderItems.belongsTo(Order) // orderitem.setOrder
+Order.hasMany(OrderItems); // order.getOrderitems
 //
 Review.belongsTo(User)
 // User.belongsToMany(Review)

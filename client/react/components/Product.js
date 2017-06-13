@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import localStore from 'store';
+import { addToOrder } from '../../reducer/products';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { getReviews, loadReviews } from '../../reducer/reviews';
@@ -26,17 +27,22 @@ export class Product extends React.Component {
 
   addToCart() {
     const selectedProduct = this.props.selectedProduct;
-    const storeKey = String(selectedProduct.id);
-    const retrieved = localStore.get(storeKey);
-    if (!retrieved) {
-      localStore.set(storeKey, {quantity: 1, selectedProduct});
-      //localStore.set(storeKey, {quantity, this.props.selectedProduct});
-    } else {
-      const newQuantity = retrieved.quantity + 1;
-      // const newQuantity = retrieved.quantity + quantity;
-      localStore.set(storeKey, {quantity: newQuantity, selectedProduct});
-      // console.alert(`You already have ${retrieved.quantity} of this item in your cart. Edit your cart if you didn't mean to add ${quantity} more!`);
-    }
+      if (!this.props.user) {
+          const storeKey = String(selectedProduct.id);
+          const retrieved = localStore.get(storeKey);
+          if (!retrieved) {
+            localStore.set(storeKey, {quantity: 1, selectedProduct});
+            //localStore.set(storeKey, {quantity, this.props.selectedProduct});
+          } else {
+            const newQuantity = retrieved.quantity + 1;
+            // const newQuantity = retrieved.quantity + quantity;
+            localStore.set(storeKey, {quantity: newQuantity, selectedProduct});
+            // console.alert(`You already have ${retrieved.quantity} of this item in your cart. Edit your cart if you didn't mean to add ${quantity} more!`);
+          }
+      } 
+  // else {
+  //   this.props.addToOrderFunc();
+  // }
   }
 
   handleClick () {
@@ -96,16 +102,17 @@ render (props) {
 };*/
 
 const mapState = state => {
-  console.log(state);
   return {
-    selectedProduct: state.products.selectedProduct
+    selectedProduct: state.products.selectedProduct,
+    user: state.user.id
   };
 };
 
-const mapDispatch = function (dispatch) {
+
+const mapDispatch = (dispatch) => {
   return {
-    setProduct (product) {
-      dispatch(selectProduct(product.id));
+    addToOrderFunc(item) {
+      dispatch(addToOrder(item))
     }
   };
 };

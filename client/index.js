@@ -13,7 +13,7 @@ import Products from './react/components/Products';
 import Product from './react/components/Product';
 import { Reviews } from './react/components/Reviews';
 import { ReviewsContainer } from './react/containers/ReviewsContainer';
-import Cart from './react/components/Cart';
+import  Cart  from './react/components/Cart';
 import Checkout from './react/components/Checkout';
 import { me } from './reducer/user';
 import axios from 'axios';
@@ -64,6 +64,7 @@ const onHomeEnter = () => {
 };
 
 const onCheckoutEnter = () => {
+  console.log("am i here?")
   const foundCart = axios.get('/api/users/cart')
     .then(function(res) {
       return res.data
@@ -79,6 +80,7 @@ const onCheckoutEnter = () => {
     })
     .catch(console.error)
 }
+
 
 
 
