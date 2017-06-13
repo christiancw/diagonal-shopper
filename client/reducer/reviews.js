@@ -53,11 +53,19 @@ export const loadReviews = function () {
   };
 };
 
-export const createReview = review => dispatch => {
-    axios.post('/api/reviews', review)
-        .then(res => dispatch(create(res.data)));
-        browserHistory.push('/');
-};
+export const createReview = review => {
+    console.log('TRYING TO CREATE REVIEW', review);
+    return (dispatch) => {
+      axios.post('/api/reviews', {
+        rating: review.stars,
+        content: review.content,
+        userId: review.userId,
+        productId: review.productId
+      })
+          .then(res => dispatch(create(res.data)));
+          browserHistory.push('/');
+        };
+      }
 
 export const selectReview = reviewId => dispatch => {
     axios.get(`/api/reviews/${reviewId}`)

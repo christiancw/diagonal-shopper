@@ -28,6 +28,7 @@ router.get('/:reviewId', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
+	console.log('REQ BODY', req.body);
 	Review.create(req.body)
 	.then(review => res.status(201).json(review))
 	.catch(next);

@@ -39,7 +39,7 @@ export class Product extends React.Component {
             localStore.set(storeKey, {quantity: newQuantity, selectedProduct});
             // console.alert(`You already have ${retrieved.quantity} of this item in your cart. Edit your cart if you didn't mean to add ${quantity} more!`);
           }
-      } 
+      }
   // else {
   //   this.props.addToOrderFunc();
   // }
@@ -73,6 +73,7 @@ render (props) {
           <CardActions>
             <FlatButton label="Add To Cart" onClick={() => {this.addToCart(); this.handleClick()}} />
             <FlatButton label="Reviews" onClick={() => this.handleReviewClick()} />
+            <Link to={`/products/${selectedProduct.id}/leavereview`}>LEAVE REVIEW</Link>/>
           </CardActions>
       </Card>
       <div>

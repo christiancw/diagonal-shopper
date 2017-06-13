@@ -24,6 +24,7 @@ import {darkBlack} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import localStore from 'store';
+import LeaveReviewContainer from './react/containers/LeaveReviewContainer';
 var Promise = require('bluebird')
 injectTapEventPlugin();
 
@@ -118,8 +119,10 @@ ReactDOM.render(
           </Route>
           <Route path="products" component={Products} />
           <Route path="products/:productId" component={Product} />
+          <Route path="products/:productId/leavereview" component={LeaveReviewContainer} />
           <Route path="cart" component={Cart} onEnter= {onCheckoutEnter} />
           <Route path="checkout" component={Checkout} onEnter= {onCheckoutEnter} />
+          <Route path="leavereview" component={LeaveReviewContainer} />
         </Route>
       </Router>
     </Provider>
