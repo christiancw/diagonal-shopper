@@ -44,7 +44,7 @@ class Checkout extends React.Component {
 
     render() {
         console.log("MAI PROPS", this.props)
-        console.log("MAI STATE", this.state)
+        console.log("MAI STATE", this.state);
         return (
                 <div>
                     { this.props.user && this.props.user.id

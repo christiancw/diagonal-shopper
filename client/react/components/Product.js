@@ -39,8 +39,7 @@ export class Product extends React.Component {
             localStore.set(storeKey, {quantity: newQuantity, selectedProduct});
             // console.alert(`You already have ${retrieved.quantity} of this item in your cart. Edit your cart if you didn't mean to add ${quantity} more!`);
           }
-      }
-  } 
+      } 
   // else {
   //   this.props.addToOrderFunc();
   // }
