@@ -41,14 +41,15 @@ router.post('/cart', (req, res, next) => {
   User.findOne({ where: { email }})
     .then(user => Order.create({ status }).then(createdOrder => createdOrder.setUser(user)))
     .then(userAssociatedOrder => {
-      const identifiedOrderItems = Object.keys(localCart).map(itemKey => {
-        const item = localCart[itemKey];
-        return OrderItem.create({ quantity: item.quantity })
-          .then(createdItem => createdItem.setOrder(userAssociatedOrder))
-          .then(orderAssociatedItem => orderAssociatedItem.setProduct(item.selectedProduct.id));
-        });
+      return transferLocalItemsToDb(userAssociatedOrder, localCart);
+      // const identifiedOrderItems = Object.keys(localCart).map(itemKey => {
+      //   const item = localCart[itemKey];
+      //   return OrderItem.create({ quantity: item.quantity })
+      //     .then(createdItem => createdItem.setOrder(userAssociatedOrder))
+      //     .then(orderAssociatedItem => orderAssociatedItem.setProduct(item.selectedProduct.id));
+      //   });
 
-      return Promise.all(identifiedOrderItems);
+      // return Promise.all(identifiedOrderItems);
     })
     .then(() => res.sendStatus(201))
     .catch(next);
@@ -57,12 +58,70 @@ router.post('/cart', (req, res, next) => {
 
 router.put('/cart', (req, res, next) => {
   const { status, email, localCart } = req.body;
-
+  // Finds the user logging in, checks if they have any in-progress orders on DB
+  // if so, adds unique orderitems and merges duplicate orderitem quantities to that order (adds)
+  // if not, creates new order with new associated orderitems
   User.findOne({ where: { email }})
-    .then(user => Order.findOrCreate({ where: { userId: user.id, status }}))
-    .then(([user, created]) => res.json({user, created}));
+    .then(user => {
+      return Order.findOrCreate({
+        where: { userId: user.id, status },
+        include: [{ model: OrderItem }]
+      })
+      .then(([order, created]) => { // chain .then like this so we have reference to 'user'
+        if (created) {
+          return order.setUser(user).then(userAssociatedOrder =>
+            transferLocalItemsToDb(userAssociatedOrder, localCart));
+        }
+        const updatedItems = order.orderitems.filter(item => localCart[item.productId])
+          .map(item => item.update({ quantity: item.quantity + localCart[item.productId].quantity }));
+
+        const productsInDbOrder = order.orderitems.map(item => +item.productId);
+        const localCartEntries = Object.keys(localCart).map(key => [key, localCart[key]]);
+        const createdItems = localCartEntries // object.entries is is ES7 and that don't work..
+          .filter(([productId, prodQuantObj]) => {
+            console.log('filtering');
+            return !productsInDbOrder.includes(+productId);
+          })
+          .map(([productId, prodQuantObj]) => {
+            return createAndAssociateItem(prodQuantObj.quantity, order, productId);
+          });
+
+        return Promise.all([...updatedItems, ...createdItems]);
+      });
+    })
+    .then(() => res.sendStatus(201))
+    .catch(next);
 });
 
+// returns newly made order items
+function transferLocalItemsToDb (userAssociatedOrder, localCart) {
+  const identifiedOrderItems = Object.keys(localCart).map(itemKey => {
+    const item = localCart[itemKey];
+    return createAndAssociateItem(item.quantity, userAssociatedOrder, item.selectedProduct.id);
+  });
+
+  return Promise.all(identifiedOrderItems);
+}
+
+function createAndAssociateItem (quantity, order, productId) {
+  return OrderItem.create({ quantity })
+    .then(createdItem => createdItem.setOrder(order))
+    .then(orderAssociatedItem => orderAssociatedItem.setProduct(productId));
+}
+
+// router.get('/cart',
+//     (req, res, next) => {
+//       console.log("WHAT IS THIS", req.session.passport)
+//       Order.findOne({where: {
+//         userId: req.session.passport.user,
+//         status: "created"
+//       },
+//       include: [ {model: OrderItem} ]
+//     })
+//       .then(order => 
+//       res.json(order))
+//       .catch(next)
+//     });
 //when logging in your either creatin
 
 router.get('/:orderId', (req, res, next) => {
