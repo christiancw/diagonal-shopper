@@ -43,6 +43,20 @@ export class Product extends React.Component {
   // else {
   //   this.props.addToOrderFunc();
   // }
+}
+  removeFromCart() {
+    const selectedProduct = this.props.selectedProduct;
+    if (!this.props.user) {
+        const storeKey = String(selectedProduct.id);
+        const retrieved = localStore.get(storeKey);
+        if (retrieved && retrieved.quantity > 1) {
+          const newQuantity = retrieved.quantity - 1;
+          localStore.set(storeKey, {quantity: newQuantity, selectedProduct});
+        }
+        if (retrieved.quantity === 1) {
+          localStore.removeItem(storeKey);
+        }
+      }
   }
 
   handleClick () {
@@ -71,7 +85,8 @@ render (props) {
             { selectedProduct.description }
           </CardText>
           <CardActions>
-            <FlatButton label="Add To Cart" onClick={() => {this.addToCart(); this.handleClick()}} />
+            <FlatButton label="Add To Cart" onClick={() => {this.addToCart(); this.handleClick();}} />
+            <FlatButton label="Remove From Cart" onClick={() => {this.removeFromCart();}} />
             <FlatButton label="Reviews" onClick={() => this.handleReviewClick()} />
           </CardActions>
       </Card>
