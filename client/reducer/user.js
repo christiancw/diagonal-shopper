@@ -24,12 +24,12 @@ export const auth = (email, password, method, noRedirect) =>
         if (noRedirect) { return; }
         else { browserHistory.push('/home'); }
       })
-      .catch(error =>
-        dispatch(getUser({ error })))
       .then(() => {
         return localCartToDb(email, method);
       })
-      .catch(err => console.log(err));
+      .catch(error =>
+        dispatch(getUser({ error })))
+      // .catch(err => console.log(err));
 
 export const logout = () =>
   dispatch =>
@@ -64,9 +64,12 @@ function localCartToDb (email, method) {
   // post all order items
   // post an order, associate all items
   // associate user
-  console.log('form name method', method);
   if (method === 'signup') {
     return axios.post('/api/orders/cart', { status: 'created', email, localCart })
+      .then(console.log.bind(console))
+      .catch(console.error);
+  } else {
+    return axios.put('/api/orders/cart', { status: 'created', email, localCart })
       .then(console.log.bind(console))
       .catch(console.error);
   }
