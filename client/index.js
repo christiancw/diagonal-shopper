@@ -53,34 +53,34 @@ const requireLogin = (nextRouterState, replace, next) =>
     .catch(err => console.log(err));
 
 
-const onHomeEnter = () => {
-  axios.get('/api/products')
+// const onHomeEnter = () => {
+//   axios.get('/api/products')
+//     .then(res => {
+//       return res.data;
+//     })
+//     .then(foundProducts => {
+//       store.dispatch(getProducts(foundProducts))
+//     })
+//     .catch(console.error)
+// };
+
+const onCheckoutEnter = () => {
+  const foundProducts = axios.get('/api/products')
     .then(res => {
       return res.data;
     })
-    .then(foundProducts => {
-      store.dispatch(getProducts(foundProducts))
-    })
-    .catch(console.error)
-};
-
-const onCheckoutEnter = () => {
-  console.log("am i here?")
   const foundCart = axios.get('/api/users/cart')
     .then(function(res) {
       return res.data
     })
-  const foundOrders = axios.get('/api/users/orders')
-    .then(function(res) {
-      return res.data
-  })
-  return Promise.all([foundCart, foundOrders])
-    .spread(function(cart, orders){
+  return Promise.all([foundProducts, foundCart])
+    .spread(function(products, cart){
+      store.dispatch(getProducts(products))
       store.dispatch(getCart(cart))
-      store.dispatch(getOrders(orders))
     })
     .catch(console.error)
 }
+
 
 const onProductEnter = (nextRouterState) => {
   store.dispatch(selectProduct(Number(nextRouterState.params.productId)));
@@ -111,13 +111,13 @@ ReactDOM.render(
   <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path="/" component={Main} onEnter={onHomeEnter}>
+        <Route path="/" component={Main} onEnter={onCheckoutEnter}>
           <IndexRoute component={Login} />
           <Route path="login" component={Login} />
           <Route path="signup" component={Signup} />
           <Route onEnter={requireLogin}>
             {/* <Route path="home" component={UserHome} onEnter={localCartToDbOrder} /> */}
-            <Route path="home" component={UserHome} />
+            <Route path="home" component={UserHome} onEnter={onCheckoutEnter}/>
           </Route>
           <Route path="products" component={Products} onEnter= {onCheckoutEnter} />
           <Route path="products/:productId" component={Product} onEnter= {onProductEnter} />
