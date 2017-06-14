@@ -24,7 +24,13 @@ export class Cart extends React.Component {
   render() {
     console.log("The current props", this.props)
     const items = this.state.thingsInStorage;
-    const itemsArray = Object.keys(items).map(function (key) { return items[key]; })
+    const itemsArray = Object.keys(items).map(function (key) { return items[key]; });
+    const totalPrice = this.props.user
+      ? this.props.cart.orderitems.reduce((acc, item) => acc + item.price * item.quantity, 0)
+      : itemsArray.reduce((acc, item) => acc + Number(item.selectedProduct.price) * Number(item.quantity), 0);
+
+// {"quantity":5,"selectedProduct":{"id":2,"name":"Felix Felicis","department":"Potions","imageURL":"http://i.imgur.com/7sIG7sF.jpg",
+// "price":"100","availableInventory":1,"description":"Grants you unusually good luck.","createdAt":"2017-06-14T01:00:36.923Z","updatedAt":"2017-06-14T01:00:36.923Z"}}
     return (
       <div>
       <h2>Items in Cart</h2>
@@ -37,7 +43,7 @@ export class Cart extends React.Component {
               }
             })
             .map(({ selectedProduct, quantity }) => {
-              console.log("relevant product", selectedProduct, "quantity", quantity) 
+              console.log("relevant product", selectedProduct, "quantity", quantity)
               return (
               
               <GridTile
@@ -45,7 +51,7 @@ export class Cart extends React.Component {
                 containerElement={<Link to={`/products/${selectedProduct.id}`} />}
                 key={selectedProduct.id}
                 title={selectedProduct.name + " (Quantity: " + quantity + ")"}
-                subtitle={<span>{selectedProduct.description}</span>}
+                subtitle={<span>{`Price: ${selectedProduct.price}.\n${selectedProduct.description}`}</span>}
                 actionIcon={<IconButton></IconButton>}>
                 <img src={selectedProduct.imageURL} />
               </GridTile>
@@ -57,12 +63,14 @@ export class Cart extends React.Component {
             containerElement={<Link to={`/products/${product.selectedProduct.id}`} />}
             key={product.selectedProduct.id}
             title={product.selectedProduct.name + " (Quantity: " + product.quantity + ")"}
-            subtitle={<span>{product.selectedProduct.description}</span>}
+            subtitle={<span>{`Price: ${product.selectedProduct.price}.\n${product.selectedProduct.description}`}</span>}
             actionIcon={<IconButton></IconButton>}>
             <img src={product.selectedProduct.imageURL} />
           </GridTile>
         ))}
       </div>
+
+        <h2>TOTAL PRICE: {totalPrice}</h2>
         <FlatButton
           label="Checkout"
           style={{
