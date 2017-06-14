@@ -17,7 +17,7 @@ import Cart from './react/components/Cart';
 import Checkout from './react/components/Checkout';
 import { me } from './reducer/user';
 import axios from 'axios';
-import { getProducts } from './reducer/products';
+import { getProducts, selectProduct } from './reducer/products';
 import { getCart, getOrders } from './reducer/order'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {darkBlack} from 'material-ui/styles/colors';
@@ -82,7 +82,9 @@ const onCheckoutEnter = () => {
     .catch(console.error)
 }
 
-
+const onProductEnter = (nextRouterState) => {
+  store.dispatch(selectProduct(Number(nextRouterState.params.productId)));
+};
 
 
 // const onCartEnter = () => {
@@ -117,8 +119,8 @@ ReactDOM.render(
             {/* <Route path="home" component={UserHome} onEnter={localCartToDbOrder} /> */}
             <Route path="home" component={UserHome} />
           </Route>
-          <Route path="products" component={Products} onEnter= {onCheckoutEnter}/>
-          <Route path="products/:productId" component={Product} onEnter= {onCheckoutEnter}/>
+          <Route path="products" component={Products} onEnter= {onCheckoutEnter} />
+          <Route path="products/:productId" component={Product} onEnter= {onProductEnter} />
           <Route path="products/:productId/leavereview" component={LeaveReviewContainer} />
           <Route path="cart" component={Cart} onEnter= {onCheckoutEnter} />
           <Route path="checkout" component={Checkout} onEnter= {onCheckoutEnter} />
