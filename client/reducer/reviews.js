@@ -54,7 +54,6 @@ export const loadReviews = function () {
 };
 
 export const createReview = review => {
-    console.log('TRYING TO CREATE REVIEW', review);
     return (dispatch) => {
       axios.post('/api/reviews', {
         rating: review.stars,

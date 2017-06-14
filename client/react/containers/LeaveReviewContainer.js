@@ -15,7 +15,6 @@ const mapDispatchToProps = (dispatch) => {
 class LeaveReviewContainer extends React.Component {
   constructor(props) {
     super(props);
-    console.log('CONTAINER PROPS', props)
     this.state = {
       contentValue: '',
       stars: '',
@@ -55,12 +54,10 @@ class LeaveReviewContainer extends React.Component {
       content: this.state.contentValue,
       stars: this.state.stars
     }
-    console.log('REVIEWOBJECT', review);
     this.props.newReview(review);
   }
 
   render(props) {
-    console.log('formcontainer state', props);
     return (
       <LeaveReview
         selectedProductName={this.props.selectedProduct.name}
@@ -75,7 +72,6 @@ class LeaveReviewContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('state-->', state);
   return {
     selectedProduct: state.products.selectedProduct,
     currentUser: state.user

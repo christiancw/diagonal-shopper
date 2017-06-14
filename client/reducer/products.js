@@ -69,14 +69,3 @@ export default function (state = productsInitialState, action) {
             return state;
     }
 }
-
-// export default function (state = productsInitialState, action) {
-//     console.log(state)
-//     switch (action.type) {
-//         case GET_PRODUCTS:
-//             return Object.assign({}, state, { allProducts: Object.assign() })
-//             });
-//         default:
-//             return state;
-//     }
-// }
