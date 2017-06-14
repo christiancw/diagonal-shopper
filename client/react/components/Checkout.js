@@ -5,6 +5,7 @@ import { Link, browserHistory } from 'react-router'
 import { createOrder } from '../../reducer/products';
 import { Login, Signup } from './Auth';
 import FlatButton from 'material-ui/FlatButton';
+import SnackBar from 'material-ui/Snackbar';
 
 class Checkout extends React.Component {
 
@@ -23,23 +24,29 @@ class Checkout extends React.Component {
                 value: '',
                 filledIn: false,
             },
-            loginShowing: false
+            loginShowing: false,
+            open: false
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleSnackbar = this.handleSnackbar.bind(this)
 
+    }
+
+    handleSnackbar(){
+        this.setState({open:true});
     }
 
     handleChange(event) {
         this.setState({ [event.target.name]: { value: event.target.value, filledIn: true } })
     }
 
-    handleSubmit() {
-
+    handleSubmit(e) {
+        e.preventDefault();
         console.log("checking handle submit")
         this.props.checkout(this.props.cart);
         console.log('called Checkout')
-        browserHistory.push('/');
+        // browserHistory.push('/');
     }
 
 
@@ -71,9 +78,15 @@ class Checkout extends React.Component {
                                                     <button
                                                         type="submit"
                                                         className="btn btn-success"
+                                                        onClick={this.handleSnackbar}
                                                     >
                                                         Submit Order
                                                     </button>
+                                                    <SnackBar
+                                                    open={this.state.open}
+                                                    autoHideDuration={4000}
+                                                    message="Order has been made."
+                                                    />
                                             </div>
                                         </div>
                                     </fieldset>
@@ -107,58 +120,47 @@ class Checkout extends React.Component {
                                     onClick={ () => { this.setState({ loginShowing: false }) } }
                                     //render <Signup />
                                 />
-                                        <div>
-                                            {this.state.loginShowing
-                                            ?
-                                                <Login noRedirect={true} />
-                                            :
-                                                <Signup noRedirect={true} />
-                                            }
-                                            <form className="form-horizontal" onSubmit={this.handleSubmit}>
-                                                <fieldset>
-                                                    <legend>Order Details</legend>
-                                                    <div className="form-group">
-                                                        <label className="col-xs-2 control-label">Address</label>
-                                                        <div className="col-xs-10">
-                                                            <input
-                                                                className="form-control"
-                                                                type="text"
-                                                                name="address"
-                                                                onChange={this.handleChange}
-                                                                value={this.state.address.value}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <div className="col-xs-10 col-xs-offset-2">
-                                                                <button
-                                                                    type="submit"
-                                                                    className="btn btn-success"
-                                                                    disabled
-                                                                >
-                                                                    Submit Order
-                                                                </button>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-                                        </div>
+                                <div>
+                                    {this.state.loginShowing
+                                        ? <Login noRedirect={true} />
+                                        : <Signup noRedirect={true} />
+                                    }
+                                    <form className="form-horizontal" onSubmit={this.handleSubmit}>
+                                        <fieldset>
+                                            <legend>Order Details</legend>
+                                            <div className="form-group">
+                                                <label className="col-xs-2 control-label">Address</label>
+                                                <div className="col-xs-10">
+                                                    <input
+                                                        className="form-control"
+                                                        type="text"
+                                                        name="address"
+                                                        onChange={this.handleChange}
+                                                        value={this.state.address.value}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <div className="col-xs-10 col-xs-offset-2">
+                                                        <button
+                                                            type="submit"
+                                                            className="btn btn-success"
+                                                            disabled
+                                                        >
+                                                            Submit Order
+                                                        </button>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
                             </div>
                     }
                     <h2>Order Details</h2>
                     <div>
                         <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Item Name</th>
-                                </tr>
-                            </thead>
                             <tbody>
-                                {this.props.cart && this.props.cart.map((product) =>
-                                    <tr key={product.productId}>
-                                        <td>{product.id}</td>
-                                    </tr>)
-                                }
+                                <Cart />
                             </tbody>
                         </table>
                     </div>

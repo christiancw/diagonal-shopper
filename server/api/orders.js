@@ -84,7 +84,7 @@ router.put('/cart', (req, res, next) => {
             return !productsInDbOrder.includes(+productId);
           })
           .map(([productId, prodQuantObj]) => {
-            return createAndAssociateItem(prodQuantObj.quantity, order, productId);
+            return createAndAssociateItem(prodQuantObj.quantity, order, productId, prodQuantObj.selectedProduct.price);
           });
 
         return Promise.all([...updatedItems, ...createdItems]);
@@ -107,7 +107,7 @@ router.put('/cart/boop', (req, res, next) => {
       console.log("am I here?")
       if (created) {
          console.log("CREATED", order, product)
-        return createAndAssociateItem(1, order, product.id)
+        return createAndAssociateItem(1, order, product.id, product.price)
     } else {
          console.log("FOUND", order, product)
         const foundItem = order.orderitems.find(item => item.productId === product.id)
@@ -116,7 +116,7 @@ router.put('/cart/boop', (req, res, next) => {
             quantity: foundItem.quantity + 1
           });
         } else {
-          return createAndAssociateItem(1, order, product.id)
+          return createAndAssociateItem(1, order, product.id, product.price)
         }
     }
     })
@@ -131,14 +131,14 @@ router.put('/cart/boop', (req, res, next) => {
 function transferLocalItemsToDb (userAssociatedOrder, localCart) {
   const identifiedOrderItems = Object.keys(localCart).map(itemKey => {
     const item = localCart[itemKey];
-    return createAndAssociateItem(item.quantity, userAssociatedOrder, item.selectedProduct.id);
+    return createAndAssociateItem(item.quantity, userAssociatedOrder, item.selectedProduct.id, item.selectedProduct.price);
   });
 
   return Promise.all(identifiedOrderItems);
 }
 
-function createAndAssociateItem (quantity, order, productId) {
-  return OrderItem.create({ quantity })
+function createAndAssociateItem (quantity, order, productId, price) {
+  return OrderItem.create({ quantity, price })
     .then(createdItem => createdItem.setOrder(order))
     .then(orderAssociatedItem => orderAssociatedItem.setProduct(productId));
 }
