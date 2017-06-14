@@ -57,7 +57,6 @@ export const createOrder = order => dispatch => {
 };
 
 export const addToOrder = product => dispatch => {
-    console.log("MOOOOOO", product)
     axios.put('/api/orders/cart/boop', product)
         .then(res => dispatch(add(res.data)));
 };
@@ -67,15 +66,6 @@ export const removeFromOrder = order => dispatch => {
     axios.delete(`/api/orders/${order.id}`)
         .then(() => console.log("did it"))
 }
-
-// export const selectOrder = orderId => dispatch => {
-//     axios.get(`/api/orders/${orderId}`)
-//         .then(res => dispatch(select(res.data)));
-//         browserHistory.push('/'); // should redirect to ORDER page
-// };
-
-
-
 
 /*---------------------REDUCERS---------------------*/
 

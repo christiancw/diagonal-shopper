@@ -13,30 +13,14 @@ import NavbarContainer from '../containers/NavbarContainer';
 // Component //
 
 export const Main = props => {
-  console.log("Props===>", props);
-
   const { children } = props;
 
   return (
 
     <div>
       <AppBar />
-    {/*</MuiThemeProvider>*/}
-        {/*{ loggedIn ?
-            <nav>
-              <Link to="/home">Home</Link>
-              <a href="#" onClick={handleClick}>Logout</a>
-            </nav> :
-            <nav>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
-            </nav>
-        <div>
-        </div>
-        }*/}
-        <hr />
+      <hr />
       { children }
-
       <Products />
     </div>
 

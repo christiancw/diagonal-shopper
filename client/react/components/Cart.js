@@ -6,7 +6,6 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 
-//TO DO: SELECTED PRODUCT ON STATE
 
 export class Cart extends React.Component {
   constructor(props){
@@ -29,8 +28,6 @@ export class Cart extends React.Component {
       ? this.props.cart.orderitems.reduce((acc, item) => acc + item.price * item.quantity, 0)
       : itemsArray.reduce((acc, item) => acc + Number(item.selectedProduct.price) * Number(item.quantity), 0);
 
-// {"quantity":5,"selectedProduct":{"id":2,"name":"Felix Felicis","department":"Potions","imageURL":"http://i.imgur.com/7sIG7sF.jpg",
-// "price":"100","availableInventory":1,"description":"Grants you unusually good luck.","createdAt":"2017-06-14T01:00:36.923Z","updatedAt":"2017-06-14T01:00:36.923Z"}}
     return (
       <div>
       <h2>Items in Cart</h2>
@@ -38,24 +35,23 @@ export class Cart extends React.Component {
         {this.props.user ?
           this.props.cart && this.props.cart.orderitems.map(item => {
             return {
-              selectedProduct: this.props.products.find(product => +product.id === +item.productId), 
+              selectedProduct: this.props.products.find(product => +product.id === +item.productId),
               quantity: item.quantity
-              }
+              };
             })
             .map(({ selectedProduct, quantity }) => {
-              console.log("relevant product", selectedProduct, "quantity", quantity)
               return (
-              
-              <GridTile
-                linkButton={ true }
-                containerElement={<Link to={`/products/${selectedProduct.id}`} />}
-                key={selectedProduct.id}
-                title={selectedProduct.name + " (Quantity: " + quantity + ")"}
-                subtitle={<span>{`Price: ${selectedProduct.price}.\n${selectedProduct.description}`}</span>}
-                actionIcon={<IconButton></IconButton>}>
-                <img src={selectedProduct.imageURL} />
-              </GridTile>
-            )})
+                <GridTile
+                  linkButton={ true }
+                  containerElement={<Link to={`/products/${selectedProduct.id}`} />}
+                  key={selectedProduct.id}
+                  title={selectedProduct.name + " (Quantity: " + quantity + ")"}
+                  subtitle={<span>{`Price: ${selectedProduct.price}.\n${selectedProduct.description}`}</span>}
+                  actionIcon={<IconButton></IconButton>}>
+                  <img src={selectedProduct.imageURL} />
+                </GridTile>
+              );
+            })
         :
           itemsArray && itemsArray.map(product => (
           <GridTile

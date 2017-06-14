@@ -6,7 +6,6 @@ import FlatButton from 'material-ui/FlatButton';
 const AuthForm = props => {
 
   const { user, name, displayName, handleSubmit, error, noRedirect } = props;
-  // console.log(noRedirect);
   return (
     user && user.id
     ?
@@ -37,26 +36,6 @@ const AuthForm = props => {
       <a href="/auth/google">{ displayName } with Google</a>
     </div>)
   );
-
-  /*return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email"><small>Email</small></label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password"><small>Password</small></label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{ displayName }</button>
-        </div>
-        { error &&  <div> { error.response.data } </div> }
-      </form>
-      <a href="/auth/google">{ displayName } with Google</a>
-    </div>
-  );*/
 };
 
 export default AuthForm;

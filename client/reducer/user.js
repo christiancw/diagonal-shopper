@@ -28,8 +28,7 @@ export const auth = (email, password, method, noRedirect) =>
         return localCartToDb(email, method);
       })
       .catch(error =>
-        dispatch(getUser({ error })))
-      // .catch(err => console.log(err));
+        dispatch(getUser({ error })));
 
 export const logout = () =>
   dispatch =>

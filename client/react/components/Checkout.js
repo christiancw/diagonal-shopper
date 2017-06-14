@@ -43,16 +43,12 @@ class Checkout extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log("checking handle submit")
         this.props.checkout(this.props.cart);
-        console.log('called Checkout')
         // browserHistory.push('/');
     }
 
 
     render() {
-        console.log("MAI PROPS", this.props)
-        console.log("MAI STATE", this.state);
         return (
                 <div>
                     { this.props.user && this.props.user.id
@@ -118,7 +114,6 @@ class Checkout extends React.Component {
                                         margin: 12
                                     }}
                                     onClick={ () => { this.setState({ loginShowing: false }) } }
-                                    //render <Signup />
                                 />
                                 <div>
                                     {this.state.loginShowing
@@ -177,7 +172,6 @@ class Checkout extends React.Component {
     const mapDispatchToProps = (dispatch) => {
     return {
         checkout(order) {
-            // dispatch(createOrder(cart))
             const action = createOrder(order);
             dispatch(action);
         }

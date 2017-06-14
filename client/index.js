@@ -36,8 +36,6 @@ const muiTheme = getMuiTheme({
     textColor: darkBlack,
     borderColor: "#BEBBBB"
   }
-  // ,
-  // userAgent: req.headers['user-agent'],
 });
 
 
@@ -85,26 +83,6 @@ const onCheckoutEnter = () => {
 const onProductEnter = (nextRouterState) => {
   store.dispatch(selectProduct(Number(nextRouterState.params.productId)));
 };
-
-
-// const onCartEnter = () => {
-//   localStore.each(function(value, key) {
-// 	console.log(key, '==', value);
-// });
-// };
-
-// const localCartToDbOrder = () => {
-
-//   axios.post('/api/orders', {
-//     status: 'created'
-//   })
-//     .then(res => {
-//       // res.data.userId = store.getState().user.id;
-//       const user = store.getState().user.id;
-//       user.addOrder(req.data);
-//     })
-//     .catch(console.error);
-// };
 
 
 ReactDOM.render(

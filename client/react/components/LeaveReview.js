@@ -7,7 +7,6 @@ export default function LeaveReview (props) {
   const selectedProduct = props.selectedProductName;
   const stars = props.stars;
   const contentValue = props.contentValue;
-  console.log('form props', props)
 
   return (
     <div>

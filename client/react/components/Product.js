@@ -12,7 +12,6 @@ import Snackbar from 'material-ui/Snackbar';
 
 // this export is FOR UNIT TESTING. DO NOT import this into react-router index
 export class Product extends React.Component {
-  // console.log('PROPS  IN PRoduct', showReviews);
   constructor(){
     super()
     this.state = {
@@ -66,12 +65,7 @@ export class Product extends React.Component {
   handleReviewClick () {
     this.setState({ showReviews: !this.state.showReviews });
   }
-// let visibleReviews = false;
-//
-//   function toggleRevs() {
-//     // visibleReview !visibleReviews});
-//     console.log(visibleReviews)
-//   }
+
 render (props) {
   const selectedProduct = this.props.selectedProduct;
   return (
@@ -105,17 +99,6 @@ render (props) {
     </div>
   )}
 }
-  /*return (
-    <div>
-      <h2>{selectedProduct.name}</h2>
-      <h5>{`in ${selectedProduct.department}`}</h5>
-      <img src={selectedProduct.imageURL} />
-      <p>{selectedProduct.description}</p>
-      <button onClick={() => addToCart()}>Add To Cart</button>
-
-    </div>
-  );
-};*/
 
 const mapState = state => {
   return {
@@ -124,11 +107,9 @@ const mapState = state => {
   };
 };
 
-
 const mapDispatch = (dispatch) => {
   return {
     addToOrderFunc(product) {
-      console.log("PLZPLZPLZ", product)
       dispatch(addToOrder(product))
     }
   };
